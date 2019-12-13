@@ -1,0 +1,18 @@
+package ve.com.abicelis.Checkliz.enums;
+
+public enum TriggerMinutesBeforeNotificationType {
+    MINUTES_1(1),
+    MINUTES_5(5),
+    MINUTES_10(10),
+    MINUTES_20(20);
+
+    private int mMinutes;
+
+    TriggerMinutesBeforeNotificationType(int minutes) {
+        mMinutes = minutes;
+    }
+
+    public int getMinutes() {
+        return mMinutes;
+    }
+}

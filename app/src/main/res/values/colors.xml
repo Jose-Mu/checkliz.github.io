@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="white">#FFFFFF</color>
+    <color name="black">#000000</color>
+    <color name="header_title_red">#ff3333</color>
+
+    <color name="icons_disabled">#BDBDBD</color>
+    <color name="icons_enabled">#212121</color>
+
+
+    <color name="map_circle_shade">#44FF0000</color>
+    <color name="map_circle_stroke">#FFFF0000</color>
+
+    /* RecordAudioDialogFragment */
+    <color name="fab_record_red">#FD4747</color>
+    <color name="fab_accept_green">#4BAE4F</color>
+
+
+    <!--<color name="primary">#4CAF50</color>-->
+    <!--<color name="primary_dark">#388E3C</color>-->
+    <!--<color name="primary_light">#C8E6C9</color>-->
+    <!--<color name="accent">#CDDC39</color>-->
+    <!--<color name="primary_text">#424242</color>-->
+    <!--<color name="secondary_text">#757575</color>-->
+    <!--<color name="icons">#FFFFFF</color>-->
+    <!--<color name="divider">#BDBDBD</color>-->
+
+    <color name="primary">#A4AAFF</color>
+    <color name="primary_dark">#A4AAFF</color>
+    <color name="primary_light">#FFE0B2</color>
+    <color name="accent">#00BCD4</color>
+    <color name="primary_text">#212121</color>
+    <color name="secondary_text">#757575</color>
+    <color name="icons">#212121</color>
+    <color name="divider">#BDBDBD</color>
+
+
+
+
+    <!--<color name="category_personal">#43A047</color>-->
+    <!--<color name="category_business">#5C6BC0</color>-->
+    <!--<color name="category_health">#AB47BC</color>-->
+    <!--<color name="category_repairs">#009688</color>-->
+    <!--<color name="category_other">#FB8C00</color>-->
+
+    <!--<color name="category_business">#BDBDBD</color>-->
+    <!--<color name="category_personal">#64B5F6</color>-->
+    <!--<color name="category_health">#81C784</color>-->
+    <!--<color name="category_repairs">#FFB74D</color>-->
+    <!--<color name="category_shopping">#BA68C8</color>-->
+
+    <color name="category_business">#f0ceb0</color>
+    <color name="category_personal">#C8E800</color>
+    <color name="category_health">#f0b0cf</color>
+    <color name="category_repairs">#b0bdf0</color>
+    <color name="category_shopping">#b0f0c9</color>
+    <color name="category_family">#c3b0f0</color>
+
+
+
+
+
+
+    <color name="gray_50">#FAFAFA</color>
+    <color name="gray_100">#F5F5F5</color>
+    <color name="gray_200">#EEEEEE</color>
+    <color name="gray_300">#E0E0E0</color>
+    <color name="gray_400">#BDBDBD</color>
+    <color name="gray_500">#9E9E9E</color>
+    <color name="gray_600">#757575</color>
+    <color name="gray_700">#616161</color>
+    <color name="gray_800">#424242</color>
+    <color name="gray_900">#212121</color>
+
+    <color name="swipe_refresh_green">#7cb342</color>
+    <color name="swipe_refresh_red">#e53935</color>
+    <color name="swipe_refresh_yellow">#fdd835</color>
+
+
+    <color name="snackbar_error_background">#e53935</color>
+    <color name="snackbar_notice_background">#fdd835</color>
+    <color name="snackbar_success_background">#43A047</color>
+
+
+    /* Home Activity */
+
+</resources>

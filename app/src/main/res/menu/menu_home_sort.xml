@@ -1,0 +1,33 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context="ve.com.abicelis.Checkliz.app.activities.HomeActivity">
+    <item
+        android:id="@+id/menu_home_sort"
+        android:orderInCategory="100"
+        android:checkable="true"
+        android:icon="@drawable/icon_sort"
+        android:title="@string/menu_home_action_sort"
+        app:showAsAction="always" />
+    <item
+        android:id="@+id/menu_home_settings"
+        android:orderInCategory="100"
+        android:title="@string/menu_home_action_settings"
+        app:showAsAction="never" />
+    <item
+        android:id="@+id/menu_home_about"
+        android:orderInCategory="100"
+        android:title="@string/menu_home_action_about"
+        app:showAsAction="never" />
+    <item
+        android:id="@+id/menu_home_rate"
+        android:orderInCategory="100"
+        android:title="@string/menu_home_action_rate"
+        app:showAsAction="never" />
+    <item
+        android:id="@+id/menu_home_login"
+        android:orderInCategory="100"
+        android:title="@string/login"
+        app:showAsAction="never" />
+
+</menu>
