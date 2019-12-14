@@ -135,13 +135,13 @@
     <string name="settings_about_title">About</string>
     <string name="settings_about_summary">Check app version, developer info&#8230;</string>
 
-    <string name="remindy_settings_rate_key" translatable="false">Checkliz_settings_rate</string>
-    <string name="remindy_settings_rate_title">Rate Checkliz</string>
-    <string name="remindy_settings_rate_summary">Like this app? Tell Us What To Improve!</string>
+    <string name="checkliz_settings_rate_key" translatable="false">Checkliz_settings_rate</string>
+    <string name="checkliz_settings_rate_title">Rate Checkliz</string>
+    <string name="checkliz_settings_rate_summary">Like this app? Tell Us What To Improve!</string>
 
-    <string name="remindy_settings_contact_key" translatable="false">Checkliz_settings_contact</string>
-    <string name="remindy_settings_contact_title">Contact developer</string>
-    <string name="remindy_settings_contact_summary">Questions? Email us at reckonize@gmail.com</string>
+    <string name="checkliz_settings_contact_key" translatable="false">Checkliz_settings_contact</string>
+    <string name="checkliz_settings_contact_title">Contact developer</string>
+    <string name="checkliz_settings_contact_summary">Questions? Email us at reckonize@gmail.com</string>
 
     <string name="settings_triggered_task_list_key" translatable="false">Checkliz_settings_triggered_task_list_key</string>
 

@@ -234,8 +234,8 @@
     <string name="reminder_type_none">Ninguno</string>
     <string name="reminder_type_one_time">Una vez</string>
     <string name="reminder_type_repeating">Repetidor</string>
-    <string name="remindy_settings_contact_summary">Tiene problemas al usar ésta app? Preguntas? Envíeme un email a alejandro@alejandrobicelis.com.ve</string>
-    <string name="remindy_settings_contact_title">Contactar al desarrolador</string>
+    <string name="checkliz_settings_contact_summary">Tiene problemas al usar ésta app? Preguntas? Envíeme un email a alejandro@alejandrobicelis.com.ve</string>
+    <string name="checkliz_settings_contact_title">Contactar al desarrolador</string>
 
     <string name="restore_failed">Error al restaurar data</string>
     <string name="restore_not_successful">Backup no encontrado en Tarjeta SD</string>

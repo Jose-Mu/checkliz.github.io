@@ -50,7 +50,7 @@
         android:summary="@string/settings_about_summary"/>
 
     <Preference
-        android:key="@string/remindy_settings_contact_key"
-        android:title="@string/remindy_settings_contact_title"
-        android:summary="@string/remindy_settings_contact_summary"/>
+        android:key="@string/checkliz_settings_contact_key"
+        android:title="@string/checkliz_settings_contact_title"
+        android:summary="@string/checkliz_settings_contact_summary"/>
 </PreferenceScreen>

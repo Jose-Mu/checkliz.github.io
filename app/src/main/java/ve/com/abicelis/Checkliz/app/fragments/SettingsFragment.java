@@ -129,7 +129,7 @@ public class SettingsFragment extends PreferenceFragmentCompat {
 
 
 
-        mContact = findPreference(getResources().getString(R.string.remindy_settings_contact_key));
+        mContact = findPreference(getResources().getString(R.string.checkliz_settings_contact_key));
         mContact.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
             @Override
             public boolean onPreferenceClick(Preference preference) {
