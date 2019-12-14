@@ -115,9 +115,6 @@ public class HomeListFragment extends Fragment implements ViewHolderClickListene
         mLayoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false);
         mAdapter = new HomeAdapter(this, mTasks);
 
-        //DividerItemDecoration itemDecoration = new DividerItemDecoration(getContext(), mLayoutManager.getOrientation());
-        //itemDecoration.setDrawable(ContextCompat.getDrawable(getActivity(), R.drawable.item_decoration_half_line));
-        //mRecyclerView.addItemDecoration(itemDecoration);
 
         mRecyclerView.setLayoutManager(mLayoutManager);
         mRecyclerView.setAdapter(mAdapter);
@@ -145,8 +142,6 @@ public class HomeListFragment extends Fragment implements ViewHolderClickListene
         if(mDao == null)
             mDao = new ChecklizDAO(getActivity().getApplicationContext());
 
-        //Clear the list and refresh it with new data, this must be done so the mAdapter
-        // doesn't lose track of the reminder list
         mTasks.clear();
 
         try {
@@ -182,9 +177,7 @@ public class HomeListFragment extends Fragment implements ViewHolderClickListene
         }
     }
 
-    /* Called from HomeActivity.onActivityResult() */
     public void updateViewholderItem(int position) {
-        //Task was edited, refresh task info and refresh recycler
         try {
             Task task = mDao.getTask(mTasks.get(position).getTask().getId());
             TaskViewModel taskViewModel = new TaskViewModel(task, ConversionUtil.taskReminderTypeToTaskViewmodelType(task.getReminderType()));
@@ -195,26 +188,12 @@ public class HomeListFragment extends Fragment implements ViewHolderClickListene
         }
     }
 
-    /* Called from HomeActivity.onActivityResult() */
     public void removeViewHolderItem(int position) {
         mTasks.remove(position);
         mAdapter.notifyItemRemoved(position);
         mAdapter.notifyItemRangeChanged(position, mAdapter.getItemCount());
     }
 
-
-
-
-
-
-    /**
-     * Toggle the selection state of an item.
-     *
-     * If the item was the last one in the selection and is unselected, the selection is stopped.
-     * Note that the selection must already be started (mActionMode must not be null).
-     *
-     * @param position Position of the item to toggle the selection state
-     */
     private void toggleSelection(int position) {
         mAdapter.toggleSelection(position);
         int count = mAdapter.getSelectedItemCount();
@@ -232,7 +211,6 @@ public class HomeListFragment extends Fragment implements ViewHolderClickListene
         if (mActionMode != null) {
             toggleSelection(position);
         } else {
-            //Open task detail activity
             getActivity().startActivityForResult(optionalIntent, TaskDetailActivity.TASK_DETAIL_REQUEST_CODE, optionalBundle);
         }
     }

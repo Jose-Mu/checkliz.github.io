@@ -66,7 +66,7 @@ public class ListItemAttachmentAdapter extends RecyclerView.Adapter<ListItemAtta
     public void setAttachmentDataUpdatedListener(AttachmentDataUpdatedListener listener) {
         this.attachmentDataUpdatedListener = listener;
     }
-    public void triggerAttachmentDataUpdatedListener() {       //Called from view holders when mRealTimeDataPersistence == true, to notify caller ListAttachmentViewHolder that the data has been updated
+    public void triggerAttachmentDataUpdatedListener() {
         if(attachmentDataUpdatedListener != null)
             attachmentDataUpdatedListener.onAttachmentDataUpdated();
     }

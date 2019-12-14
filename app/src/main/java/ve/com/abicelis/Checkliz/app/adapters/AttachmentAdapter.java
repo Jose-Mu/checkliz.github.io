@@ -92,7 +92,6 @@ public class AttachmentAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
             case AUDIO:
                 AudioAttachmentViewHolder avh = (AudioAttachmentViewHolder) holder;
                 avh.setData(this, mActivity, (AudioAttachment) current, position, mRealTimeDataPersistence);
-                //avh.setListeners();
                 break;
 
             case IMAGE:
@@ -112,7 +111,7 @@ public class AttachmentAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
     }
 
 
-    public void deleteAttachment(int position) {            //Called from viewHolders when deleting an attachment
+    public void deleteAttachment(int position) {
 
         Attachment attachment = mAttachments.get(position);
         switch (attachment.getType()) {
@@ -140,7 +139,7 @@ public class AttachmentAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
     public void setAttachmentDataUpdatedListener(AttachmentDataUpdatedListener listener) {
         this.attachmentDataUpdatedListener = listener;
     }
-    public void triggerAttachmentDataUpdatedListener() {       //Called from view holders when mRealTimeDataPersistence == true, to notify caller activity that the data has been updated
+    public void triggerAttachmentDataUpdatedListener() {
         if(attachmentDataUpdatedListener != null)
             attachmentDataUpdatedListener.onAttachmentDataUpdated();
     }
@@ -152,7 +151,7 @@ public class AttachmentAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
     public void setShowAttachmentHintListener(ShowAttachmentHintListener listener) {
         this.showAttachmentHintListener = listener;
     }
-    public void triggerShowAttachmentHintListener() {       //Called from view holders
+    public void triggerShowAttachmentHintListener() {
         if(showAttachmentHintListener != null)
             showAttachmentHintListener.onShowAttachmentHint();
     }

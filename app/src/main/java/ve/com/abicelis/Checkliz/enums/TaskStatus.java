@@ -31,9 +31,4 @@ public enum TaskStatus implements Serializable {
         return friendlyValues;
     }
 
-    /*
-    * PROGRAMMED =      Tasks UNCOMPLETED by user. TaskStatus.ACTIVE + TaskStatus.OVERDUE
-    * UNPROGRAMMED =    Tasks UNCOMPLETED by user. Tasks with ReminderType=NONE
-    * DONE =            Tasks COMPLETED by user. doneDate != null
-    * */
 }

@@ -29,7 +29,6 @@ public class TriggerTaskNotificationReceiver extends BroadcastReceiver {
     public void onReceive(Context context, Intent intent) {
         Log.d(TAG, "TriggerTaskNotificationReceiver");
 
-        //Get TASK_ID_EXTRA
         int taskId;
         try {
             taskId = intent.getIntExtra(TASK_ID_EXTRA, -1);
@@ -68,7 +67,6 @@ public class TriggerTaskNotificationReceiver extends BroadcastReceiver {
 
                 NotificationUtil.displayNotification(context, task, contentTitle, contentText);
 
-                //Add task to triggeredTasks list
                 List<Integer> triggeredTasks = SharedPreferenceUtil.getTriggeredTaskList(context);
                 triggeredTasks.add(task.getId());
                 SharedPreferenceUtil.setTriggeredTaskList(triggeredTasks, context);
@@ -80,7 +78,6 @@ public class TriggerTaskNotificationReceiver extends BroadcastReceiver {
             Log.d(TAG, "TriggerTaskNotificationReceiver triggered with no TASK_ID_EXTRA!");
         }
 
-        //Set next alarm
         AlarmManagerUtil.updateAlarms(context);
     }
 }

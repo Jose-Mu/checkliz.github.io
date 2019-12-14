@@ -52,7 +52,7 @@ public class SettingsActivity extends AppCompatActivity {
         mToolbar.setTitle(getResources().getString(R.string.activity_settings_toolbar_title));
         mToolbar.setNavigationIcon(ContextCompat.getDrawable(this, R.drawable.icon_back_material));
 
-        //Set toolbar as actionbar
+        //ubah toolbar jadi actionbar
         setSupportActionBar(mToolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setHomeButtonEnabled(true);
@@ -64,7 +64,7 @@ public class SettingsActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
         switch (id) {
-            // Respond to the mToolbar's back/home button
+            // jika tekan back/home berfungsi
             case android.R.id.home:
                 onBackPressed();
                 return true;
@@ -75,9 +75,9 @@ public class SettingsActivity extends AppCompatActivity {
     @Override
     public void onBackPressed() {
         if(!mOldTimeFormat.equals(SharedPreferenceUtil.getTimeFormat(this)) || !mOldDateFormat.equals(SharedPreferenceUtil.getDateFormat(this)) || mForceHomeRefresh)
-            setResult(RESULT_OK);   //If date or time formats were changed or mForceHomeRefresh==true
+            setResult(RESULT_OK);
         else
-            setResult(RESULT_CANCELED); //If no change
+            setResult(RESULT_CANCELED);
         finish();
     }
 }

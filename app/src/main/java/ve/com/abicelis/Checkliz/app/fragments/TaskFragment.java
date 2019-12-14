@@ -75,7 +75,7 @@ public class TaskFragment extends Fragment implements View.OnClickListener, Task
     private FloatingActionButton mAttachmentsFabImage;
     private FloatingActionButton mAttachmentsFabAudio;
 
-    public RecyclerView mRecyclerView;          //Public, accessed from TaskActivity
+    public RecyclerView mRecyclerView;
     private LinearLayoutManager mLayoutManager;
     private RelativeLayout mNoItemsContainer;
 
@@ -84,7 +84,6 @@ public class TaskFragment extends Fragment implements View.OnClickListener, Task
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_task, container, false);
 
-        //Grab task argument
         if(getArguments().containsKey(TASK_ARGUMENT)) {
             mTask = (Task) getArguments().get(TASK_ARGUMENT);
         } else {
@@ -252,14 +251,14 @@ public class TaskFragment extends Fragment implements View.OnClickListener, Task
                 addAttachment(new AudioAttachment());
                 break;
         }
-        //Scroll to added item
+
         if(mAdapter.getItemCount() > 0)
             mRecyclerView.smoothScrollToPosition(mAdapter.getItemCount() - 1);
     }
 
 
     private void fadeInHeaders() {
-        //Fade in headers
+
         TransitionManager.beginDelayedTransition(mContainer);
         mHeaderBasicInfo.setVisibility(View.VISIBLE);
         mHeaderAttachments.setVisibility(View.VISIBLE);

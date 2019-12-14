@@ -74,7 +74,7 @@ public class ImageAttachmentViewHolder extends RecyclerView.ViewHolder implement
 
 
     public void setListeners() {
-        //Listeners set in setData()
+
     }
 
     @Override

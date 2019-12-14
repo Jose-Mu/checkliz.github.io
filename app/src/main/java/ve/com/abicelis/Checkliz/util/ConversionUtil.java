@@ -14,9 +14,7 @@ import ve.com.abicelis.Checkliz.model.Place;
 
 
 public class ConversionUtil {
-    /**
-     * Converts dp to px
-     */
+
     public static int dpToPx(int dp, Resources resources) {
         final float scale = resources.getDisplayMetrics().density;
         int px = (int) (dp * scale + 0.5f);

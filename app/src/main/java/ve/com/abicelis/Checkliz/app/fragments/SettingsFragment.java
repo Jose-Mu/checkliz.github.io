@@ -71,15 +71,6 @@ public class SettingsFragment extends PreferenceFragmentCompat {
         mTriggerMinutesBeforeNotification.setEntries(getTriggerMinutesBeforeNotificationEntries());
         mTriggerMinutesBeforeNotification.setEntryValues(getTriggerMinutesBeforeNotificationEntryValues());
 
-//        mShowLocationBasedReminderInNewTab = (SwitchPreference) findPreference(getResources().getString(R.string.settings_show_location_based_reminder_in_new_tab_key));
-//        handleShowLocationBasedReminderInNewTabPreferenceChange(getShowLocationBasedReminderInNewTabValue());
-//        mShowLocationBasedReminderInNewTab.setOnPreferenceChangeListener(new Preference.OnPreferenceChangeListener() {
-//            @Override
-//            public boolean onPreferenceChange(Preference preference, Object newValue) {
-//                handleShowLocationBasedReminderInNewTabPreferenceChange((boolean) newValue);
-//                return true;
-//            }
-//        });
 
         mBackup = findPreference(getResources().getString(R.string.settings_backup_key));
         mRestore = findPreference(getResources().getString(R.string.settings_restore_key));
@@ -88,7 +79,7 @@ public class SettingsFragment extends PreferenceFragmentCompat {
             @Override
             public boolean onPreferenceClick(Preference preference) {
 
-                // Check for external storage permissions
+                // izin untuk mengecek external storage
                 String[] nonGrantedPermissions = PermissionUtil.checkIfPermissionsAreGranted(getActivity(), Manifest.permission.WRITE_EXTERNAL_STORAGE);
 
                 if(nonGrantedPermissions != null) {
@@ -104,7 +95,6 @@ public class SettingsFragment extends PreferenceFragmentCompat {
             @Override
             public boolean onPreferenceClick(Preference preference) {
 
-                // Check for external storage permissions
                 String[] nonGrantedPermissions = PermissionUtil.checkIfPermissionsAreGranted(getActivity(), Manifest.permission.WRITE_EXTERNAL_STORAGE);
 
                 if(nonGrantedPermissions != null) {
@@ -216,25 +206,4 @@ public class SettingsFragment extends PreferenceFragmentCompat {
             Toast.makeText(getActivity(), getResources().getString(R.string.backup_restore_no_permissions), Toast.LENGTH_SHORT).show();
         }
     }
-
-
-
-
-
-
-
-//    private boolean getShowLocationBasedReminderInNewTabValue() {
-//        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(getActivity().getApplicationContext());
-//        return preferences.getBoolean(getResources().getString(R.string.settings_show_location_based_reminder_in_new_tab_key), false);
-//    }
-//
-//    private void handleShowLocationBasedReminderInNewTabPreferenceChange(boolean newValue) {
-//        if(newValue)
-//            mShowLocationBasedReminderInNewTab.setSummary(getResources().getText(R.string.settings_show_location_based_reminder_in_new_tab_summary_true));
-//        else
-//            mShowLocationBasedReminderInNewTab.setSummary(getResources().getText(R.string.settings_show_location_based_reminder_in_new_tab_summary_false));
-//    }
-
-
-
 }

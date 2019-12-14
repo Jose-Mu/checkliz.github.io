@@ -26,9 +26,7 @@ public class EditListItemAttachmentDialogFragment extends DialogFragment impleme
     private Button mOk;
 
     public EditListItemAttachmentDialogFragment() {
-        // Empty constructor is required for DialogFragment
-        // Make sure not to add arguments to the constructor
-        // Use `newInstance` instead as shown below
+
     }
 
     public static EditListItemAttachmentDialogFragment newInstance(boolean isANewItem, String text) {
@@ -74,7 +72,7 @@ public class EditListItemAttachmentDialogFragment extends DialogFragment impleme
         int id = v.getId();
         switch(id) {
             case R.id.dialog_edit_list_item_attachment_cancel:
-                //Hide keyboard
+                //sembunyikan keyboard
                 ((InputMethodManager)getActivity().getSystemService(Context.INPUT_METHOD_SERVICE)).hideSoftInputFromWindow(mText.getWindowToken(), 0);
 
                 dismiss();
@@ -85,7 +83,7 @@ public class EditListItemAttachmentDialogFragment extends DialogFragment impleme
 
                     mListener.onFinishEditListItemAttachmentDialog(mText.getText().toString().trim(), isANewItem);
 
-                    //Hide keyboard
+                    //sembunyikan keyboard
                     ((InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE)).hideSoftInputFromWindow(mText.getWindowToken(), 0);
 
                     dismiss();

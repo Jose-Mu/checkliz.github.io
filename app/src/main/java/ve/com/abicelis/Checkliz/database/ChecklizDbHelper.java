@@ -17,7 +17,7 @@ import ve.com.abicelis.Checkliz.util.FileUtil;
 public class ChecklizDbHelper extends SQLiteOpenHelper {
 
     private static final String DATABASE_NAME = "Checkliz.db";
-    private static final int DATABASE_VERSION = 2;                               // If you change the database schema, you must increment the database version.
+    private static final int DATABASE_VERSION = 2;
     private static final String COMMA_SEP = ", ";
 
     private String mAppDbFilepath;
@@ -36,27 +36,19 @@ public class ChecklizDbHelper extends SQLiteOpenHelper {
     @Override
     public void onCreate(SQLiteDatabase sqLiteDatabase) {
         createDatabase(sqLiteDatabase);
-        //insertMockData(sqLiteDatabase);
+
     }
 
 
     @Override
     public void onUpgrade(SQLiteDatabase sqLiteDatabase, int i, int i1) {
-        // This database is only a cache for online data, so its upgrade policy is
-        // to simply to discard the data and start over
         deleteDatabase(sqLiteDatabase);
         onCreate(sqLiteDatabase);
     }
 
 
-    /**
-     * Copies the database file at the specified location over the current
-     * internal application database.
-     * */
     public boolean exportDatabase() throws IOException {
 
-        // Close the SQLiteOpenHelper so it will commit the created empty
-        // database to internal storage.
         close();
         File appDatabase = new File(mAppDbFilepath);
         File backupDatabase = new File(mDbExternalBackupFilepath);
@@ -68,22 +60,15 @@ public class ChecklizDbHelper extends SQLiteOpenHelper {
         return false;
     }
 
-    /**
-     * Copies the database file at the specified location over the current
-     * internal application database.
-     * */
     public boolean importDatabase() throws IOException {
 
-        // Close the SQLiteOpenHelper so it will commit the created empty
-        // database to internal storage.
         close();
         File appDatabase = new File(mAppDbFilepath);
         File backupDatabase = new File(mDbExternalBackupFilepath);
 
         if (backupDatabase.exists()) {
             FileUtil.copyFile(new FileInputStream(backupDatabase), new FileOutputStream(appDatabase));
-            // Access the copied database so SQLiteHelper will cache it and mark
-            // it as created.
+
             getWritableDatabase().close();
             return true;
         }
@@ -93,15 +78,14 @@ public class ChecklizDbHelper extends SQLiteOpenHelper {
     private void insertMockData(SQLiteDatabase sqLiteDatabase) {
         String statement;
 
-        //Mock times
+
         int time0600 = new Time(6, 0).getTimeInMinutes();
         int time1259 = new Time(12, 59).getTimeInMinutes();
         int time1800 = new Time(18, 0).getTimeInMinutes();
         int time1930 = new Time(19, 30).getTimeInMinutes();
 
-        //Mock dates
         Calendar cal = Calendar.getInstance();
-        // Set cal to be at midnight (start of day) today.
+
         cal.set(Calendar.HOUR_OF_DAY, 0);
         cal.set(Calendar.MINUTE, 0);
         cal.set(Calendar.SECOND, 0);

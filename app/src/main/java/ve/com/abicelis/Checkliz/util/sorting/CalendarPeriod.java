@@ -11,7 +11,6 @@ public class CalendarPeriod {
     public CalendarPeriod(CalendarPeriodType periodType) {
 
         start = Calendar.getInstance();
-        //start.add(Calendar.DAY_OF_MONTH, 0);
         start.set(Calendar.HOUR_OF_DAY, 0);
         start.set(Calendar.MINUTE, 0);
         start.set(Calendar.SECOND, 0);
@@ -55,10 +54,9 @@ public class CalendarPeriod {
                 start.set(Calendar.MONTH, 0);
                 start.set(Calendar.DAY_OF_MONTH, 1);
                 end = Calendar.getInstance();
-                end.add(Calendar.MILLISECOND, -1); //One Millisecond ago
+                end.add(Calendar.MILLISECOND, -1);
                 break;
             case TODAY:
-                //Dates are already set
                 break;
             case TOMORROW:
                 start.add(Calendar.DAY_OF_MONTH, 1);

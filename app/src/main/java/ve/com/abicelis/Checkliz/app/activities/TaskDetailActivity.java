@@ -118,7 +118,6 @@ public class TaskDetailActivity extends AppCompatActivity implements View.OnClic
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
 
-        //Enable Lollipop Material Design transitions
         if(android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.LOLLIPOP)
             getWindow().requestFeature(Window.FEATURE_CONTENT_TRANSITIONS);
 
@@ -167,7 +166,7 @@ public class TaskDetailActivity extends AppCompatActivity implements View.OnClic
                 .build();
         mGoogleApiClient.connect();
 
-        //Get date format preference
+        //format tanggal
         mDateFormat = SharedPreferenceUtil.getDateFormat(getApplicationContext());
 
         mCategory = (ImageView) findViewById(R.id.activity_task_detail_category);
@@ -236,7 +235,7 @@ public class TaskDetailActivity extends AppCompatActivity implements View.OnClic
         mToolbar.setTitle(getResources().getString(R.string.activity_task_title));
         mToolbar.setNavigationIcon(ContextCompat.getDrawable(this, R.drawable.icon_back_material));
 
-        //Set toolbar as actionbar
+        //toolbar jadi actionbar
         setSupportActionBar(mToolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setHomeButtonEnabled(true);
@@ -310,38 +309,32 @@ public class TaskDetailActivity extends AppCompatActivity implements View.OnClic
         if(mTaskDataUpdated) {
             try {
 
-                //Clean attachments
+
                 AttachmentUtil.cleanInvalidAttachments(mTask.getAttachments());
 
-                //Save changes
                 new ChecklizDAO(this).updateTask(mTask);
 
-                //Update geofences
                 if(mUpdateGeofences || mTask.getReminderType().equals(ReminderType.LOCATION_BASED))
                     GeofenceUtil.updateGeofences(getApplicationContext(), mGoogleApiClient);
 
-                //Update alarms
                 if(mTask.getReminderType().equals(ReminderType.ONE_TIME) || mTask.getReminderType().equals(ReminderType.REPEATING)) {
 
-                    //Remove task from triggeredTasks list
                     SharedPreferenceUtil.removeIdFromTriggeredTasks(getApplicationContext(), mTask.getId());
 
-                    //Update alarms
                     AlarmManagerUtil.updateAlarms(getApplicationContext());
                 }
 
-                //See if reminder was edited, in which case refresh the whole home viewpager
+                //melihat jika reminder di refresh
                 String newReminderJson = new Gson().toJson(mTask.getReminder());
                 int taskDetailReturnActionType = (mOldReminderJson.equals(newReminderJson) ?
                         TASK_DETAIL_RETURN_ACTION_EDITED : TASK_DETAIL_RETURN_ACTION_EDITED_REMINDER);
 
-                //Return task position to HomeListFragment, and also notify edition!!
                 Intent returnIntent = new Intent();
                 returnIntent.putExtra(TASK_DETAIL_RETURN_ACTION_TYPE, taskDetailReturnActionType);
                 returnIntent.putExtra(TASK_DETAIL_RETURN_TASK_POSITION, mPosition);
                 returnIntent.putExtra(TASK_DETAIL_RETURN_TASK_VIEWPAGER_INDEX, getViewPagerIndexFromTask(mTask));
                 setResult(RESULT_OK, returnIntent);
-                supportFinishAfterTransition();     //When user backs out, transition back!
+                supportFinishAfterTransition();
 
             }catch (CouldNotUpdateDataException e) {
                 SnackbarUtil.showSnackbar(mContainer, SnackbarUtil.SnackbarType.ERROR, R.string.activity_task_snackbar_error_updating_task, SnackbarUtil.SnackbarDuration.LONG, null);
@@ -359,7 +352,7 @@ public class TaskDetailActivity extends AppCompatActivity implements View.OnClic
         mTaskDataUpdated = true;
         mTask.addAttachment(attachment);
 
-        if(mAdapter == null)        //If recycler hasn't been instantiated (there were no attachments), set it up.
+        if(mAdapter == null)
             setUpRecyclerView();
 
         if(mAdapter.getItemCount() == 1)
@@ -367,7 +360,7 @@ public class TaskDetailActivity extends AppCompatActivity implements View.OnClic
         else
             mAdapter.notifyItemInserted(mAdapter.getItemCount());
 
-        //Scroll to added item
+
         mRecyclerView.smoothScrollToPosition(mAdapter.getItemCount() - 1);
     }
 
@@ -410,12 +403,12 @@ public class TaskDetailActivity extends AppCompatActivity implements View.OnClic
                 }
 
                 mTaskDataUpdated = true;
-                mOldReminderJson = "!"; //Force a TASK_DETAIL_RETURN_ACTION_EDITED_REMINDER state.
+                mOldReminderJson = "!";
                 setUpDoneOrOverdue();
                 break;
         }
 
-        //Scroll to added item
+
         if(mAdapter != null && mAdapter.getItemCount() > 0)
             mRecyclerView.smoothScrollToPosition(mAdapter.getItemCount() - 1);
     }
@@ -437,7 +430,7 @@ public class TaskDetailActivity extends AppCompatActivity implements View.OnClic
 
         switch (id) {
 
-            // Respond to the mToolbar's back/home button
+
             case android.R.id.home:
                 onBackPressed();
                 return true;
@@ -459,7 +452,6 @@ public class TaskDetailActivity extends AppCompatActivity implements View.OnClic
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
-        //This request comes from ImageAttachmentViewHolder calling startActivityForResult() on EditImageAttachmentActivity
         if(requestCode == EditImageAttachmentActivity.EDIT_IMAGE_ATTACHMENT_REQUEST_CODE && resultCode == RESULT_OK) {
             int position = data.getIntExtra(EditImageAttachmentActivity.HOLDER_POSITION_EXTRA, -1);
             ImageAttachment imageAttachment = (ImageAttachment) data.getSerializableExtra(EditImageAttachmentActivity.IMAGE_ATTACHMENT_EXTRA);
@@ -470,7 +462,6 @@ public class TaskDetailActivity extends AppCompatActivity implements View.OnClic
             }
         }
 
-        //This request comes from ImageAttachmentViewHolder calling startActivityForResult() on ViewImageAttachmentActivity
         if(requestCode == ViewImageAttachmentActivity.VIEW_IMAGE_ATTACHMENT_REQUEST_CODE && resultCode == RESULT_OK) {
             int position = data.getIntExtra(ViewImageAttachmentActivity.HOLDER_POSITION_EXTRA, -1);
             ImageAttachment imageAttachment = (ImageAttachment) data.getSerializableExtra(ViewImageAttachmentActivity.IMAGE_ATTACHMENT_EXTRA);
@@ -481,9 +472,8 @@ public class TaskDetailActivity extends AppCompatActivity implements View.OnClic
             }
         }
 
-        //This request comes from TaskActivity, which was called from menu edit button
+
         if(requestCode == TaskActivity.TASK_ACTIVITY_REQUEST_CODE && resultCode == RESULT_OK) {
-            //Task was edited
             mTaskDataUpdated = true;
             mTask = (Task) data.getSerializableExtra(TaskActivity.TASK_TO_EDIT);
 
@@ -513,7 +503,6 @@ public class TaskDetailActivity extends AppCompatActivity implements View.OnClic
                                 public void onDismissed(Snackbar transientBottomBar, int event) {
                                     super.onDismissed(transientBottomBar, event);
 
-                                    //Return task position to HomeListFragment, and also notify deletion
                                     Intent returnIntent = new Intent();
                                     returnIntent.putExtra(TASK_DETAIL_RETURN_ACTION_TYPE, TASK_DETAIL_RETURN_ACTION_DELETED);
                                     returnIntent.putExtra(TASK_DETAIL_RETURN_TASK_POSITION, mPosition);
@@ -548,7 +537,7 @@ public class TaskDetailActivity extends AppCompatActivity implements View.OnClic
         if(task.getStatus().equals(TaskStatus.DONE))
             return 2;
 
-        return 1;   //Programmed tasks in tab 1
+        return 1;
     }
 
 

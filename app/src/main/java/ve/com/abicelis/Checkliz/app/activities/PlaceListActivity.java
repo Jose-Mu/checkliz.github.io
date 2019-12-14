@@ -57,7 +57,6 @@ public class PlaceListActivity extends AppCompatActivity implements View.OnClick
         setUpToolbar();
         setUpRecyclerView();
         refreshRecyclerView();
-        //TapTargetSequenceUtil.showTapTargetSequenceFor(this, TapTargetSequenceType.PLACE_LIST_ACTIVITY);
     }
 
 
@@ -68,7 +67,7 @@ public class PlaceListActivity extends AppCompatActivity implements View.OnClick
         mToolbar.setTitle(getResources().getString(R.string.activity_place_list_title));
         mToolbar.setNavigationIcon(ContextCompat.getDrawable(this, R.drawable.icon_back_material));
 
-        //Set toolbar as actionbar
+        //toolbar menjadi action bar
         setSupportActionBar(mToolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setHomeButtonEnabled(true);
@@ -93,8 +92,7 @@ public class PlaceListActivity extends AppCompatActivity implements View.OnClick
         if(mDao == null)
             mDao = new ChecklizDAO(getApplicationContext());
 
-        //Clear the list and refresh it with new data, this must be done so the mAdapter
-        // doesn't lose track of the reminder list
+
         mPlaces.clear();
         mPlaces.addAll(mDao.getPlaces());
 
@@ -130,7 +128,7 @@ public class PlaceListActivity extends AppCompatActivity implements View.OnClick
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
         switch (id) {
-            // Respond to the mToolbar's back/home button
+
             case android.R.id.home:
                 onBackPressed();
                 return true;

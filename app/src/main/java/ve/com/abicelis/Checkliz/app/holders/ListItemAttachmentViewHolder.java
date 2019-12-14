@@ -28,7 +28,7 @@ public class ListItemAttachmentViewHolder extends RecyclerView.ViewHolder implem
     private CheckBox mCheckBox;
     private ImageView mTapToAdd;
     private TextView mText;
-    //private ImageButton mMoreBtn;
+
 
 
     //DATA
@@ -43,7 +43,6 @@ public class ListItemAttachmentViewHolder extends RecyclerView.ViewHolder implem
         mCheckBox = (CheckBox) itemView.findViewById(R.id.list_item_attachment_list_item_checkbox);
         mTapToAdd = (ImageView) itemView.findViewById(R.id.list_item_attachment_list_item_tap_to_add);
         mText = (TextView) itemView.findViewById(R.id.list_item_attachment_list_item_text);
-        //mMoreBtn = (ImageButton) itemView.findViewById(R.id.list_item_attachment_list_item_more);
     }
 
 
@@ -60,14 +59,10 @@ public class ListItemAttachmentViewHolder extends RecyclerView.ViewHolder implem
     private void setupViewHolder() {
         mContainer.setOnClickListener(null);
         mContainer.setOnLongClickListener(null);
-        //mMoreBtn.setOnClickListener(null);
 
         if(mCurrent.getText() == null || mCurrent.getText().isEmpty()) {
             mCheckBox.setVisibility(View.GONE);
             mTapToAdd.setVisibility(View.VISIBLE);
-
-            //mMoreBtn.setEnabled(false);
-            //mMoreBtn.setColorFilter(ContextCompat.getColor(mActivity,  R.color.gray_300));
             mContainer.setOnClickListener(this);
 
             mText.setText("");
@@ -76,9 +71,6 @@ public class ListItemAttachmentViewHolder extends RecyclerView.ViewHolder implem
             mCheckBox.setVisibility(View.VISIBLE);
             mTapToAdd.setVisibility(View.GONE);
 
-            //mMoreBtn.setEnabled(true);
-            //mMoreBtn.setColorFilter(ContextCompat.getColor(mActivity,  R.color.primary_dark));
-            //mMoreBtn.setOnClickListener(this);
             mContainer.setOnLongClickListener(this);
 
 
@@ -90,7 +82,7 @@ public class ListItemAttachmentViewHolder extends RecyclerView.ViewHolder implem
     }
 
 
-    public void setListeners() { /*Done in setData*/ }
+    public void setListeners() { /*di setdata*/ }
 
     @Override
     public boolean onLongClick(View view) {

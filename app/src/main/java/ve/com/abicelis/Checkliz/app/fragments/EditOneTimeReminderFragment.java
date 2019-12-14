@@ -43,7 +43,6 @@ public class EditOneTimeReminderFragment extends Fragment implements TaskDataInt
         super.onCreate(savedInstanceState);
         setHasOptionsMenu(true);
 
-        //If fragment was just called, expect a reminder at REMINDER_ARGUMENT
         if(getArguments().containsKey(REMINDER_ARGUMENT))
             mReminder = (OneTimeReminder) getArguments().getSerializable(REMINDER_ARGUMENT);
 
@@ -127,18 +126,15 @@ public class EditOneTimeReminderFragment extends Fragment implements TaskDataInt
     private void setReminderValues() {
         if(mReminder.getDate() != null) {
             mDate.setText(mDateFormat.formatCalendar(mReminder.getDate()));
-            //mDatePicker.setPreselectedDate(mDateCal.get(Calendar.YEAR), mDateCal.get(Calendar.MONTH), mDateCal.get(Calendar.DAY_OF_MONTH));
         }
 
         if(mReminder.getTime() != null) {
             mTime.setText(mReminder.getTime().toString());
-            //mTimePicker.setStartTime(mReminder.getTime().getHour(), mReminder.getTime().getMinute());
         }
     }
 
     @Override
     public void updateData() {
-        //Date, Time already set!
     }
 
 }

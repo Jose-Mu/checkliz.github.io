@@ -37,7 +37,7 @@ public class EditLocationBasedReminderFragment extends Fragment implements TaskD
 
     //CONST
     public static final String REMINDER_ARGUMENT = "REMINDER_ARGUMENT";
-    //public static final String INSTANCE_STATE_REMINDER_KEY = "INSTANCE_STATE_REMINDER_KEY";
+
 
 
     //DATA
@@ -61,7 +61,7 @@ public class EditLocationBasedReminderFragment extends Fragment implements TaskD
         super.onCreate(savedInstanceState);
         setHasOptionsMenu(true);
 
-        //If fragment was just called, expect a reminder at REMINDER_ARGUMENT
+
         if(getArguments().containsKey(REMINDER_ARGUMENT))
             mReminder = (LocationBasedReminder) getArguments().getSerializable(REMINDER_ARGUMENT);
         else
@@ -70,7 +70,6 @@ public class EditLocationBasedReminderFragment extends Fragment implements TaskD
         mDao = new ChecklizDAO(getActivity());
         mPlaces = mDao.getPlaces();
 
-        //Set mReminder to the first place if empty
         if(mReminder.getPlace() == null)
             mReminder.setPlace(mPlaces.get(0));
 
@@ -107,9 +106,7 @@ public class EditLocationBasedReminderFragment extends Fragment implements TaskD
         setReminderValues();
 
 
-        // Initialise the MapView
         mMapView.onCreate(null);
-        // Set the map ready callback to receive the GoogleMap object
         mMapView.getMapAsync(this);
 
         return rootView;
@@ -185,7 +182,6 @@ public class EditLocationBasedReminderFragment extends Fragment implements TaskD
 
             mMap.clear();
 
-            // Add a marker for this item and set the camera
             BitmapDescriptor icon = BitmapDescriptorFactory.fromResource(R.drawable.icon_marker);
 
             LatLng loc = new LatLng(mReminder.getPlace().getLatitude(), mReminder.getPlace().getLongitude());
@@ -199,7 +195,7 @@ public class EditLocationBasedReminderFragment extends Fragment implements TaskD
 
     @Override
     public void updateData() {
-        //Place, PlaceId and getTriggerEntering already set
+
     }
 
 }

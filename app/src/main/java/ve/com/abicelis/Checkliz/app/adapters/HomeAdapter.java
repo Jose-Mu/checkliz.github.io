@@ -66,7 +66,7 @@ public class HomeAdapter extends SelectableAdapter<RecyclerView.ViewHolder> {
         boolean nextItemIsATask = false;
         try {
             nextItemIsATask = mTasks.get(position+1).getViewModelType() != TaskViewModelType.HEADER;
-        } catch (IndexOutOfBoundsException e) {/*Do nothing*/}
+        } catch (IndexOutOfBoundsException e) {/*tidak lakukan apa apa*/}
 
         switch (viewModelType) {
             case HEADER:
@@ -116,7 +116,6 @@ public class HomeAdapter extends SelectableAdapter<RecyclerView.ViewHolder> {
     }
 
     public void removeItems(List<Integer> positions) {
-        // Reverse-sort the list
         Collections.sort(positions, new Comparator<Integer>() {
             @Override
             public int compare(Integer lhs, Integer rhs) {
@@ -124,7 +123,6 @@ public class HomeAdapter extends SelectableAdapter<RecyclerView.ViewHolder> {
             }
         });
 
-        // Split the list in ranges
         while (!positions.isEmpty()) {
             if (positions.size() == 1) {
                 removeItem(positions.get(0));

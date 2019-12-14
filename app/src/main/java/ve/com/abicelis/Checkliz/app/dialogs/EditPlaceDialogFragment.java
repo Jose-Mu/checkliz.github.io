@@ -21,9 +21,7 @@ public class EditPlaceDialogFragment extends DialogFragment implements View.OnCl
     private Button mOk;
 
     public EditPlaceDialogFragment() {
-        // Empty constructor is required for DialogFragment
-        // Make sure not to add arguments to the constructor
-        // Use `newInstance` instead as shown below
+
     }
 
     public static EditPlaceDialogFragment newInstance(String alias, String address) {

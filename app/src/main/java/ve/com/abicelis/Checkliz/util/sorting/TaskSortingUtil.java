@@ -90,7 +90,7 @@ public class TaskSortingUtil {
     }
 
 
-    /* Programmed Tasks */
+
     public ArrayList<TaskViewModel> generateProgrammedTaskHeaderList(List<Task> tasks, TaskSortType sortType, Resources resources) throws InvalidClassException {
         ArrayList<TaskViewModel> result = new ArrayList<>();
 
@@ -218,11 +218,6 @@ public class TaskSortingUtil {
     }
 
 
-
-
-
-
-    /* Done Tasks */
     public ArrayList<TaskViewModel> generateDoneTaskHeaderList(List<Task> tasks, TaskSortType sortType, Resources resources) throws InvalidClassException {
         ArrayList<TaskViewModel> result = new ArrayList<>();
 
@@ -328,18 +323,18 @@ public class TaskSortingUtil {
         if(tasks.size() == 0)
             return;
 
-        if(tasks.get(0).getReminderType() != ReminderType.LOCATION_BASED) {   //There are no Location-based reminders, insert them all into result
+        if(tasks.get(0).getReminderType() != ReminderType.LOCATION_BASED) {
             result.add(new TaskViewModel(resources.getString(R.string.task_header_no_location), false));
             dumpTaskBucketIntoViewModelList(tasks, result);
         } else {
-            String lastPlaceAlias = ((LocationBasedReminder)tasks.get(0).getReminder()).getPlace().getAlias();     //Grab first location alias
+            String lastPlaceAlias = ((LocationBasedReminder)tasks.get(0).getReminder()).getPlace().getAlias();
             result.add(new TaskViewModel(lastPlaceAlias, false));
             result.add(new TaskViewModel(tasks.get(0), TaskViewModelType.LOCATION_BASED_REMINDER));
 
 
             for (int i = 1; i < tasks.size(); i++) {
 
-                if(tasks.get(i).getReminderType() != ReminderType.LOCATION_BASED) { //Got to a NON Location-based reminder? Add the rest of reminders and break.
+                if(tasks.get(i).getReminderType() != ReminderType.LOCATION_BASED) {
                     result.add(new TaskViewModel(resources.getString(R.string.task_header_no_location), false));
 
                     List<Task> otherTasks = new ArrayList<>();
@@ -350,7 +345,7 @@ public class TaskSortingUtil {
                 }
 
                 String placeAlias = ((LocationBasedReminder)tasks.get(i).getReminder()).getPlace().getAlias();
-                if(placeAlias.compareTo(lastPlaceAlias) != 0) {   //New location alias? Add a header
+                if(placeAlias.compareTo(lastPlaceAlias) != 0) {
                     lastPlaceAlias = placeAlias;
                     result.add(new TaskViewModel(lastPlaceAlias, false));
                 }

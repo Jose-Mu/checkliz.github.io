@@ -124,14 +124,11 @@ public class ProgrammedLocationBasedTaskViewHolder extends RecyclerView.ViewHold
             case R.id.item_task_programmed_location_based_container:
                 Pair[] pairs = new Pair[1];
                 pairs[0] = new Pair<View, String>(mCategoryIcon, mFragment.getResources().getString(R.string.transition_task_list_category));
-                //pairs[1] = new Pair<View, String>(mTitle, mFragment.getResources().getString(R.string.transition_task_list_title));
-                //pairs[2] = new Pair<View, String>(mDescription, mFragment.getResources().getString(R.string.transition_task_list_description));
                 ActivityOptionsCompat options = ActivityOptionsCompat.makeSceneTransitionAnimation(mFragment.getActivity(), pairs);
 
                 Intent openTaskDetailActivity = new Intent(mFragment.getActivity(), TaskDetailActivity.class);
                 openTaskDetailActivity.putExtra(TaskDetailActivity.TASK_ID_TO_DISPLAY, mCurrent.getId());
                 openTaskDetailActivity.putExtra(TaskDetailActivity.TASK_POSITION, mReminderPosition);
-                //mFragment.getActivity().startActivityForResult(openTaskDetailActivity, TaskDetailActivity.TASK_DETAIL_REQUEST_CODE, options.toBundle());
 
                 if (mClickListener != null) {
                     mClickListener.onItemClicked(mReminderPosition, openTaskDetailActivity, options.toBundle());

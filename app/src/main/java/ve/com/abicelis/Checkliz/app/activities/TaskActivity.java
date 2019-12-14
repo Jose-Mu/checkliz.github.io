@@ -105,7 +105,7 @@ public class TaskActivity extends AppCompatActivity implements
         mToolbar.setTitle(editingTask ? R.string.activity_task_toolbar_title_edit : R.string.activity_task_toolbar_title_new);
         mToolbar.setNavigationIcon(ContextCompat.getDrawable(this, R.drawable.icon_back_material));
 
-        //Set toolbar as actionbar
+        //ubah toolbar jadi actionbar
         setSupportActionBar(mToolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setHomeButtonEnabled(true);
@@ -126,8 +126,6 @@ public class TaskActivity extends AppCompatActivity implements
         bundle.putSerializable(ReminderFragment.TASK_ARGUMENT, mTask);
         mReminderFragment.setArguments(bundle);
 
-
-        //Rebuild lists
         mTitleList.clear();
         mFragmentList.clear();
 
@@ -138,8 +136,6 @@ public class TaskActivity extends AppCompatActivity implements
         mFragmentList.add(mTaskFragment);
         mFragmentList.add(mReminderFragment);
 
-
-        //Setup adapter, viewpager and tablayout
         mTaskViewPagerAdapter = new TaskViewPagerAdapter(getSupportFragmentManager(), mTitleList, mFragmentList);
         mViewpager.setAdapter(mTaskViewPagerAdapter);
         mTabLayout.setupWithViewPager(mViewpager);
@@ -156,7 +152,7 @@ public class TaskActivity extends AppCompatActivity implements
                     public void onClick(DialogInterface dialog, int which) {
                         FileUtil.deleteAttachmentFiles(TaskActivity.this, mTask.getAttachments());
                         dialog.dismiss();
-                        setResult(RESULT_CANCELED);       //Task was NOT created, set result to CANCELLED
+                        setResult(RESULT_CANCELED);
                         finish();
                     }
                 })
@@ -188,7 +184,7 @@ public class TaskActivity extends AppCompatActivity implements
             case R.id.menu_task_save:
                 updateTaskDataFromFragments();
                 if(checkTaskData()) {
-                    if(mTask.getReminderType().equals(ReminderType.NONE)) { //No reminder
+                    if(mTask.getReminderType().equals(ReminderType.NONE)) {
                         AlertDialog dialog = new AlertDialog.Builder(this)
                                 .setTitle(getResources().getString(R.string.activity_task_warn_no_reminder_dialog_title))
                                 .setMessage(getResources().getString(R.string.activity_task_warn_no_reminder_dialog_message))
@@ -203,7 +199,7 @@ public class TaskActivity extends AppCompatActivity implements
                                     @Override
                                     public void onClick(DialogInterface dialog, int which) {
                                         dialog.dismiss();
-                                        mViewpager.setCurrentItem(1, true); //Go to Reminder tab
+                                        mViewpager.setCurrentItem(1, true);
                                     }
                                 })
                                 .create();
@@ -328,25 +324,24 @@ public class TaskActivity extends AppCompatActivity implements
 
             if (!editingTask) {
 
-                //Insert the task
+                //masukkin task
                 dao.insertTask(mTask);
 
-                //Update geofences
                 if(mTask.getReminderType().equals(ReminderType.LOCATION_BASED))
                     GeofenceUtil.updateGeofences(getApplicationContext(), mGoogleApiClient);
 
-                //Update alarms
+                //untuk alarm
                 if(mTask.getReminderType().equals(ReminderType.ONE_TIME) || mTask.getReminderType().equals(ReminderType.REPEATING)) {
 
-                    //Remove task from triggeredTasks list
+                    //hilangkan task
                     SharedPreferenceUtil.removeIdFromTriggeredTasks(getApplicationContext(), mTask.getId());
 
-                    //Update alarms
+                    //Update alarm
                     AlarmManagerUtil.updateAlarms(getApplicationContext());
                 }
 
             }
-            //If editing, Caller activity TaskDetailActivity will save the task.
+            //jika editing save data
 
             BaseTransientBottomBar.BaseCallback<Snackbar> callback = new BaseTransientBottomBar.BaseCallback<Snackbar>() {
                 @Override
@@ -372,7 +367,7 @@ public class TaskActivity extends AppCompatActivity implements
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
-        //This request comes from ImageAttachmentViewHolder calling startActivityForResult() on EditImageAttachmentActivity
+
         if(requestCode == EditImageAttachmentActivity.EDIT_IMAGE_ATTACHMENT_REQUEST_CODE && resultCode == RESULT_OK) {
             int position = data.getIntExtra(EditImageAttachmentActivity.HOLDER_POSITION_EXTRA, -1);
             ImageAttachment imageAttachment = (ImageAttachment) data.getSerializableExtra(EditImageAttachmentActivity.IMAGE_ATTACHMENT_EXTRA);
@@ -383,7 +378,7 @@ public class TaskActivity extends AppCompatActivity implements
             }
         }
 
-        //This request comes from ImageAttachmentViewHolder calling startActivityForResult() on ViewImageAttachmentActivity
+
         if(requestCode == ViewImageAttachmentActivity.VIEW_IMAGE_ATTACHMENT_REQUEST_CODE && resultCode == RESULT_OK) {
             int position = data.getIntExtra(ViewImageAttachmentActivity.HOLDER_POSITION_EXTRA, -1);
             ImageAttachment imageAttachment = (ImageAttachment) data.getSerializableExtra(ViewImageAttachmentActivity.IMAGE_ATTACHMENT_EXTRA);

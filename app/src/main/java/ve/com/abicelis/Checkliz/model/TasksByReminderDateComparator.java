@@ -20,7 +20,7 @@ public class TasksByReminderDateComparator implements Comparator<Task> {
         Calendar o1Date = null;
         if(o1.getReminderType() == ReminderType.ONE_TIME)
             o1Date = ((OneTimeReminder) o1.getReminder()).getDate();
-        else {  //Repeating reminder
+        else {
             Calendar cal = TaskUtil.getRepeatingReminderNextCalendar(((RepeatingReminder) o1.getReminder()));
             o1Date = (cal != null ? cal : TaskUtil.getRepeatingReminderEndCalendar(((RepeatingReminder) o1.getReminder())));
         }
@@ -28,13 +28,10 @@ public class TasksByReminderDateComparator implements Comparator<Task> {
         Calendar o2Date = null;
         if(o2.getReminderType() == ReminderType.ONE_TIME)
             o2Date = ((OneTimeReminder) o2.getReminder()).getDate();
-        else {  //Repeating reminder
+        else {
             Calendar cal = TaskUtil.getRepeatingReminderNextCalendar(((RepeatingReminder) o2.getReminder()));
             o2Date = (cal != null ? cal : TaskUtil.getRepeatingReminderEndCalendar(((RepeatingReminder) o2.getReminder())));
         }
-
-        //Calendar o1Date = (o1.getReminderType() == ReminderType.ONE_TIME ? ((OneTimeReminder) o1.getReminder()).getDate() : TaskUtil.getRepeatingReminderNextCalendar(((RepeatingReminder) o1.getReminder())) );
-        //Calendar o2Date = (o2.getReminderType() == ReminderType.ONE_TIME ? ((OneTimeReminder) o2.getReminder()).getDate() : TaskUtil.getRepeatingReminderNextCalendar(((RepeatingReminder) o2.getReminder())) );
         return o1Date.compareTo(o2Date);
     }
 }

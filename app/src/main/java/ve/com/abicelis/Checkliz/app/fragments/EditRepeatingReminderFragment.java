@@ -46,7 +46,6 @@ public class EditRepeatingReminderFragment extends Fragment implements TaskDataI
 
     //CONST
     public static final String REMINDER_ARGUMENT = "REMINDER_ARGUMENT";
-    //public static final String INSTANCE_STATE_REMINDER_KEY = "INSTANCE_STATE_REMINDER_KEY";
 
 
     //DATA
@@ -78,7 +77,6 @@ public class EditRepeatingReminderFragment extends Fragment implements TaskDataI
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        //If fragment was just called, expect a reminder at REMINDER_ARGUMENT
         if(getArguments().containsKey(REMINDER_ARGUMENT))
             mReminder = (RepeatingReminder) getArguments().getSerializable(REMINDER_ARGUMENT);
 
@@ -390,7 +388,7 @@ public class EditRepeatingReminderFragment extends Fragment implements TaskDataI
     @Override
     public void updateData() {
 
-        //Date, Time, RepeatType, RepeatEndType and RepeatEndDate already set
+        //tanggal dan waktu udah disetting
         switch (mReminder.getRepeatEndType()){
             case FOR_X_EVENTS:
                 mReminder.setRepeatEndDate(null);

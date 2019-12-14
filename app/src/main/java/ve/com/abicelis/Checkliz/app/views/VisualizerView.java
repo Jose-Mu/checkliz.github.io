@@ -11,40 +11,39 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class VisualizerView extends View {
-    private static final int LINE_WIDTH = 2; // width of visualizer lines
-    private static final int LINE_SCALE = 220; // scales visualizer lines
-    private List<Float> amplitudes; // amplitudes for line lengths
-    private int width; // width of this View
-    private int height; // height of this View
-    private Paint linePaint; // specifies line drawing characteristics
+    private static final int LINE_WIDTH = 2;
+    private static final int LINE_SCALE = 220;
+    private List<Float> amplitudes;
+    private int width;
+    private int height;
+    private Paint linePaint;
     private int mLineColor = Color.GREEN;
 
-    // constructor
+
     public VisualizerView(Context context, AttributeSet attrs) {
-        super(context, attrs); // call superclass constructor
-        linePaint = new Paint(); // create Paint for lines
-        linePaint.setColor(mLineColor); // set color to green
-        linePaint.setStrokeWidth(LINE_WIDTH); // set stroke width
+        super(context, attrs);
+        linePaint = new Paint();
+        linePaint.setColor(mLineColor);
+        linePaint.setStrokeWidth(LINE_WIDTH);
     }
 
-    // called when the dimensions of the View change
     @Override
     protected void onSizeChanged(int w, int h, int oldw, int oldh) {
-        width = w; // new width of this View
-        height = h; // new height of this View
+        width = w;
+        height = h;
         amplitudes = new ArrayList<Float>(width / LINE_WIDTH);
     }
 
-    // clear all amplitudes to prepare for a new visualization
+
     public void clear() {
         amplitudes.clear();
     }
 
-    // add the given amplitude to the amplitudes ArrayList
-    public void addAmplitude(float amplitude) {
-        amplitudes.add(amplitude); // add newest to the amplitudes ArrayList
 
-        // if the power lines completely fill the VisualizerView
+    public void addAmplitude(float amplitude) {
+        amplitudes.add(amplitude);
+
+
         if (amplitudes.size() * LINE_WIDTH >= width) {
             amplitudes.remove(0); // remove oldest power value
         }
@@ -55,19 +54,19 @@ public class VisualizerView extends View {
         linePaint.setColor(mLineColor);
     }
 
-    // draw the visualizer with scaled lines representing the amplitudes
+
     @Override
     public void onDraw(Canvas canvas) {
-        int middle = height / 2; // get the middle of the View
-        float curX = 0; // start curX at zero
+        int middle = height / 2;
+        float curX = 0;
 
-        // for each item in the amplitudes ArrayList
+
         for (float power : amplitudes) {
-            float scaledHeight = power / LINE_SCALE; // scale the power
+            float scaledHeight = power / LINE_SCALE;
             scaledHeight = (scaledHeight < 2 ? 2 : scaledHeight);
-            curX += LINE_WIDTH; // increase X by LINE_WIDTH
+            curX += LINE_WIDTH;
 
-            // draw a line representing this item in the amplitudes ArrayList
+
             canvas.drawLine(curX, middle + scaledHeight / 2, curX, middle
                     - scaledHeight / 2, linePaint);
         }

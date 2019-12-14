@@ -41,7 +41,6 @@ public class BetterNestedScrollView extends NestedScrollView {
                 xDistance = yDistance = 0f;
                 lastX = ev.getX();
                 lastY = ev.getY();
-                // This is very important line that fixes
                 computeScroll();
                 break;
             case MotionEvent.ACTION_MOVE:

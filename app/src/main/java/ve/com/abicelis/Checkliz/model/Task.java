@@ -25,7 +25,7 @@ public class Task implements Serializable {
     private Calendar doneDate;
     private ArrayList<Attachment> attachments;
 
-    public Task() {     //Empty constructor for creating new tasks
+    public Task() {
         this.id = -1;
         this.status = TaskStatus.UNPROGRAMMED;
         this.title = "";

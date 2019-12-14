@@ -31,7 +31,7 @@ public class NotificationIntentService extends Service implements
     public int onStartCommand(Intent intent, int flags, int startId) {
         Log.d(TAG, "onStartCommand()");
 
-        // Create an instance of GoogleAPIClient.
+        // untuk googleapiclient
         if (mGoogleApiClient == null) {
             mGoogleApiClient = new GoogleApiClient.Builder(this)
                     .addConnectionCallbacks(this)
@@ -41,10 +41,9 @@ public class NotificationIntentService extends Service implements
             mGoogleApiClient.connect();
         }
 
-        //Reset triggered tasks
         SharedPreferenceUtil.setTriggeredTaskList(new ArrayList<Integer>(), getApplicationContext());
 
-        //Update Alarms
+        //Update Alarm
         AlarmManagerUtil.updateAlarms(getApplicationContext());
 
 
@@ -66,7 +65,7 @@ public class NotificationIntentService extends Service implements
 
 
 
-    /* GoogleApiClient callbacks */
+
     @Override
     public void onConnected(@Nullable Bundle bundle) {
         Log.d(TAG, "onConnected()");

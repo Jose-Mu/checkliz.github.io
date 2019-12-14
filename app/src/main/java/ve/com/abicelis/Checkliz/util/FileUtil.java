@@ -17,20 +17,7 @@ import ve.com.abicelis.Checkliz.model.attachment.ImageAttachment;
 
 
 public class FileUtil {
-    /**
-     * Creates the specified <code>toFile</code> as a byte for byte copy of the
-     * <code>fromFile</code>. If <code>toFile</code> already exists, then it
-     * will be replaced with a copy of <code>fromFile</code>. The name and path
-     * of <code>toFile</code> will be that of <code>toFile</code>.<br/>
-     * <br/>
-     * <i> Note: <code>fromFile</code> and <code>toFile</code> will be closed by
-     * this function.</i>
-     *
-     * @param fromFile
-     *            - FileInputStream for the file to copy from.
-     * @param toFile
-     *            - FileInputStream for the file to copy to.
-     */
+
     public static void copyFile(FileInputStream fromFile, FileOutputStream toFile) throws IOException {
         FileChannel fromChannel = null;
         FileChannel toChannel = null;
@@ -66,10 +53,6 @@ public class FileUtil {
     }
 
 
-    /**
-     * Creates an empty file at the specified directory, with the given name if it doesn't already exist
-     *
-     */
     public static File createNewFileIfNotExistsInDir(File directory, String fileName) throws IOException {
         File file = new File(directory, fileName);
         file.createNewFile();
@@ -77,9 +60,6 @@ public class FileUtil {
     }
 
 
-    /**
-     * Deletes the images and audio files from a list of attachments
-     */
     public static void deleteAttachmentFiles(Activity activity, List<Attachment> attachments) {
         for (Attachment attachment : attachments) {
             switch (attachment.getType()) {
@@ -107,16 +87,5 @@ public class FileUtil {
             file.delete();
         }
     }
-
-
-//    public static File createTempImageFileInDir(File directory, String fileExtension) throws IOException, SecurityException {
-//        if(fileExtension.toCharArray()[0] != '.')
-//            fileExtension = "." + fileExtension;
-//
-//        //String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
-//        String fileName = "TEMP_" + UUID.randomUUID().toString() + "_";
-//        File file = File.createTempFile(fileName, fileExtension, directory);
-//        return file;
-//    }
 
 }

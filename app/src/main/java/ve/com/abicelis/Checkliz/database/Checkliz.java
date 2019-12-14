@@ -4,11 +4,8 @@ import android.provider.BaseColumns;
 
 final class ChecklizContract {
 
-    // To prevent someone from accidentally instantiating the contract class,
-    // give it an empty constructor.
     ChecklizContract() { }
 
-    /* One-time Reminders Table */
     static abstract class OneTimeReminderTable implements BaseColumns {
         static final String TABLE_NAME = "one_time_reminder";
 
@@ -18,7 +15,7 @@ final class ChecklizContract {
     }
 
 
-    /* Repeating Reminders Table */
+
     static abstract class RepeatingReminderTable implements BaseColumns {
         static final String TABLE_NAME = "repeating_reminder";
 
@@ -32,7 +29,7 @@ final class ChecklizContract {
         static final TableColumn COLUMN_NAME_REPEAT_END_DATE = new TableColumn(DataType.INTEGER, "repeat_end_date");
     }
 
-    /* Places Table */
+
     static abstract class PlaceTable implements BaseColumns {
         static final String TABLE_NAME = "place";
 
@@ -44,7 +41,7 @@ final class ChecklizContract {
         static final TableColumn COLUMN_NAME_IS_ONE_OFF = new TableColumn(DataType.TEXT, "is_one_off");
     }
 
-    /* Location-based Reminders Table */
+
     static abstract class LocationBasedReminderTable implements BaseColumns {
         static final String TABLE_NAME = "location_based_reminder";
 
@@ -66,7 +63,7 @@ final class ChecklizContract {
     }
 
 
-    /* Attachments Table */
+
     static abstract class AttachmentTable implements BaseColumns {
         static final String TABLE_NAME = "attachment";
 

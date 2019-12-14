@@ -12,8 +12,8 @@ public class TaskViewPagerAdapter extends FragmentPagerAdapter {
 
     //DATA
     private List<String> mTitleList;
-    private List<Fragment> mFragmentList;                                           //Holds all of the fragments
-    private SparseArray<Fragment> mRegisteredFragmentList = new SparseArray<>();    //Holds only registered fragments
+    private List<Fragment> mFragmentList;
+    private SparseArray<Fragment> mRegisteredFragmentList = new SparseArray<>();
 
 
     public TaskViewPagerAdapter(FragmentManager fm, List<String> titleList, List<Fragment> fragmentList) {
@@ -40,7 +40,7 @@ public class TaskViewPagerAdapter extends FragmentPagerAdapter {
 
 
 
-    /* These methods are for maintaining and getting registered fragments */
+
     public Fragment getRegisteredFragment(int position) {
         return mRegisteredFragmentList.get(position);
     }

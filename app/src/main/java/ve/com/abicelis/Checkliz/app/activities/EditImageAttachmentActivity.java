@@ -49,7 +49,7 @@ import ve.com.abicelis.Checkliz.util.TapTargetSequenceUtil;
 public class EditImageAttachmentActivity extends AppCompatActivity implements View.OnClickListener{
 
 
-    //CONSTS
+    //izin camera
     private static final int REQUEST_TAKE_PICTURE_PERMISSION = 239;
     private static String [] permissions = {Manifest.permission.CAMERA, Manifest.permission.WRITE_EXTERNAL_STORAGE};
     public static final String TAG = EditImageAttachmentActivity.class.getSimpleName();
@@ -94,16 +94,16 @@ public class EditImageAttachmentActivity extends AppCompatActivity implements Vi
         mOk = (Button) findViewById(R.id.activity_edit_image_attachment_ok);
         mCancel = (Button) findViewById(R.id.activity_edit_image_attachment_cancel);
 
-        //If screen was rotated, for example
+        //jika hape di putar
         if (savedInstanceState != null) {
             //Load values from savedInstanceState
             mImageAttachment = (ImageAttachment) savedInstanceState.getSerializable(IMAGE_ATTACHMENT_EXTRA);
             mHolderPosition = savedInstanceState.getInt(HOLDER_POSITION_EXTRA);
             mEditingExistingImageAttachment = savedInstanceState.getBoolean(EDITING_ATTACHMENT_EXTRA);
 
-            //Get jpeg from SD Card
+            //ambil foto dari sd card
             mImageBackup = ImageUtil.getBitmap(new File(FileUtil.getImageAttachmentDir(this), mImageAttachment.getImageFilename()));
-            if(mImageBackup == null) {  //If jpeg was deleted from device, use thumbnail
+            if(mImageBackup == null) {  //jika foto dihapus, pakai icon
                 mImageBackup = ImageUtil.getBitmap(mImageAttachment.getThumbnail());
                 saveThumbnailAsImageFile(mImageBackup);
             }
@@ -112,14 +112,14 @@ public class EditImageAttachmentActivity extends AppCompatActivity implements Vi
             showTapTargetSequence();
         } else {
 
-            //Coming from another activity: Check if intent has required extras
+
             if(getIntent().hasExtra(HOLDER_POSITION_EXTRA) && getIntent().hasExtra(IMAGE_ATTACHMENT_EXTRA)) {
                 mHolderPosition = getIntent().getIntExtra(HOLDER_POSITION_EXTRA, -1);
                 mImageAttachment = (ImageAttachment) getIntent().getSerializableExtra(IMAGE_ATTACHMENT_EXTRA);
 
                 if (mImageAttachment.getImageFilename() != null && !mImageAttachment.getImageFilename().isEmpty()) {
                     mImageBackup = ImageUtil.getBitmap(new File(FileUtil.getImageAttachmentDir(this), mImageAttachment.getImageFilename()));
-                    if(mImageBackup == null) {  //IF image was deleted from device
+                    if(mImageBackup == null) {  //jika foto di hapus
                         mImageBackup = ImageUtil.getBitmap(mImageAttachment.getThumbnail());
                         saveThumbnailAsImageFile(mImageBackup);
                     }
@@ -146,10 +146,6 @@ public class EditImageAttachmentActivity extends AppCompatActivity implements Vi
                 finish();
             }
 
-//            mImageAttachment = new ImageAttachment(new byte[0], "09ce7135-86d6-4d93-bcc5-1fbff5651d0f.jpg");
-//            mImageBackup = ImageUtil.getBitmap(new File(FileUtil.getImageAttachmentDir(this), mImageAttachment.getImageFilename()));
-//            mEditingExistingImageAttachment = true;
-//            mImage.setImageBitmap(mImageBackup);
 
         }
 
@@ -271,15 +267,15 @@ public class EditImageAttachmentActivity extends AppCompatActivity implements Vi
 
     private void applyPendingRotation() {
         if(mRotation != 0) {
-            //Normalize rotation
+            //rotasi biasa
             mRotation = mRotation % 360;
             if (mRotation < 0) mRotation += 360;
 
-            //Get the bitmap
+            //dapat bitmap
             File imageFile = new File(FileUtil.getImageAttachmentDir(this), mImageAttachment.getImageFilename());
             Bitmap imageBitmap = ImageUtil.getBitmap(imageFile);
 
-            //Rotate it
+            //rotasi
             Matrix matrix = new Matrix();
             matrix.postRotate(mRotation);
             imageBitmap = Bitmap.createBitmap(imageBitmap, 0, 0, imageBitmap.getWidth(), imageBitmap.getHeight(), matrix, true);
@@ -290,7 +286,7 @@ public class EditImageAttachmentActivity extends AppCompatActivity implements Vi
                 SnackbarUtil.showSnackbar(mContainer, SnackbarUtil.SnackbarType.ERROR, R.string.activity_edit_image_attachment_snackbar_error_could_not_rotate, SnackbarUtil.SnackbarDuration.LONG, null);
             }
 
-            //Reload ImageView
+            //reload penampilan hape
             mImage.setImageBitmap(imageBitmap);
             mImage.setRotation(0);
 
@@ -312,8 +308,7 @@ public class EditImageAttachmentActivity extends AppCompatActivity implements Vi
 
     private void handleImageCapture() {
 
-        // Check for the camera permission before accessing the camera.  If the
-        // permission is not granted yet, request permission.
+        // minta izin buka hape
         String[] nonGrantedPermissions = PermissionUtil.checkIfPermissionsAreGranted(this, permissions);
 
         if(nonGrantedPermissions == null)
@@ -343,7 +338,7 @@ public class EditImageAttachmentActivity extends AppCompatActivity implements Vi
                     }
                 }
 
-                //Permissions granted
+                //izin diberikan
                 dispatchTakePictureIntent();
                 break;
         }

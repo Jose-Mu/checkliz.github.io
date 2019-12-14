@@ -7,7 +7,7 @@ public class ImageAttachment extends Attachment {
     private byte[] thumbnail;
     private String imageFilename;
 
-    public ImageAttachment() { /* Parameter-less constructor for image attachment creation */ }
+    public ImageAttachment() { /* untuk penempelan gambar */ }
     public ImageAttachment(byte[] thumbnail, String imageFilename) {
         this.thumbnail = thumbnail;
         this.imageFilename = imageFilename;

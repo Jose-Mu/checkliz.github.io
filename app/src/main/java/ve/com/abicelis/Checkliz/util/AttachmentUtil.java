@@ -42,7 +42,6 @@ public class AttachmentUtil {
                     break;
 
                 case LIST:
-                    //Iterate Items, remove empty ones
                     Iterator<ListItemAttachment> i = ((ListAttachment) attachment).getItems().iterator();
                     while (i.hasNext()) {
                         ListItemAttachment item = i.next();
@@ -50,7 +49,6 @@ public class AttachmentUtil {
                             i.remove();
                     }
 
-                    //If List Attachment has no items, delete the whole thing.
                     if (((ListAttachment) attachment).getItems().size() == 0) {
                         attachmentIterator.remove();
                     }

@@ -23,9 +23,6 @@ public class EditTextAttachmentDialogFragment extends DialogFragment implements 
     private Button mOk;
 
     public EditTextAttachmentDialogFragment() {
-        // Empty constructor is required for DialogFragment
-        // Make sure not to add arguments to the constructor
-        // Use `newInstance` instead as shown below
     }
 
     public static EditTextAttachmentDialogFragment newInstance(String text) {

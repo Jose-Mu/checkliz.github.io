@@ -39,8 +39,6 @@ public class ReminderFragment extends Fragment implements TaskDataInterface {
     //CONST
     private static final String TAG = ReminderFragment.class.getSimpleName();
     public static final String TASK_ARGUMENT = "TASK_ARGUMENT";
-
-    //Used when there are no Places in DB and user is trying to add a Location-based reminder to a new task, so user is sent to PlaceActivity
     public static final int REQUEST_CODE_CREATING_PLACE_FOR_NEW_TASK = 128;
 
     //DATA
@@ -61,7 +59,6 @@ public class ReminderFragment extends Fragment implements TaskDataInterface {
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_reminder, container, false);
 
-        //Grab task argument
         if(getArguments().containsKey(TASK_ARGUMENT)) {
             mTask = (Task) getArguments().get(TASK_ARGUMENT);
         } else {
@@ -145,7 +142,6 @@ public class ReminderFragment extends Fragment implements TaskDataInterface {
                 break;
         }
 
-        //Reset flag if used
         useReminderFlag = false;
     }
 
@@ -164,7 +160,6 @@ public class ReminderFragment extends Fragment implements TaskDataInterface {
     }
 
     public void handleNoPlacesExist() {
-        //No Places exist, alert user and allow him/her to create a place.
 
         AlertDialog dialog = new AlertDialog.Builder(getActivity())
                 .setTitle(getResources().getString(R.string.fragment_reminder_no_places_dialog_title))
@@ -196,7 +191,6 @@ public class ReminderFragment extends Fragment implements TaskDataInterface {
             if(atLeastOnePlaceExists()) {
                 handleLocationBasedTaskReminderSelected();
             } else
-                //User failed to add a Place, set reminder to none.
                 mReminderTypeSpinner.setSelection(0);
         }
 

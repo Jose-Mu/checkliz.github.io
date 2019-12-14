@@ -66,7 +66,6 @@ public class LinkAttachmentViewHolder extends RecyclerView.ViewHolder implements
             case R.id.item_attachment_link_content:
                 if(mLink.getText().equals(""))
                     handleLinkEdit();
-                //If not empty, default behavior in xml will open link in browser.
                 break;
         }
     }

@@ -6,7 +6,7 @@ public class AudioAttachment extends Attachment {
 
     private String audioFilename;
 
-    public AudioAttachment() { /* Parameter-less constructor for audio attachment creation */ }
+    public AudioAttachment() { /* untuk penempelan audio */ }
     public AudioAttachment(String audioFilename) {
         this.audioFilename = audioFilename;
     }

@@ -55,8 +55,8 @@ public class RecordAudioDialogFragment extends DialogFragment implements View.On
     private String mAudioFilePath = null;
     private MediaRecorder mRecorder = null;
     private MediaPlayer mPlayer = null;
-    private Handler mVizHandler = null;                // Handler for updating the visualizer
-    private Handler mTextHandler = null;                // Handler for updating the elapsed text
+    private Handler mVizHandler = null;
+    private Handler mTextHandler = null;
     private long startTime = 0L;
     private RecordAudioDialogFinishListener mListener;
 
@@ -71,9 +71,6 @@ public class RecordAudioDialogFragment extends DialogFragment implements View.On
 
 
     public RecordAudioDialogFragment() {
-        // Empty constructor is required for DialogFragment
-        // Make sure not to add arguments to the constructor
-        // Use `newInstance` instead as shown below
     }
 
     public static RecordAudioDialogFragment newInstance(AudioAttachment audioAttachment) {
@@ -165,7 +162,7 @@ public class RecordAudioDialogFragment extends DialogFragment implements View.On
 
     private void handleStartRecording() {
 
-        // Check for the recording permissions. If not granted yet, request permission.
+        // minta izin record suara
         String[] nonGrantedPermissions = PermissionUtil.checkIfPermissionsAreGranted(getActivity(), permissions);
 
         if(nonGrantedPermissions == null) {
@@ -188,7 +185,7 @@ public class RecordAudioDialogFragment extends DialogFragment implements View.On
                     }
                 }
 
-                //Permissions granted
+                //kalau diberi izin
                 mState = STATE_RECORDING;
                 startRecording();
                 break;
@@ -240,7 +237,7 @@ public class RecordAudioDialogFragment extends DialogFragment implements View.On
     }
 
     private void startPlaying() {
-        //Reset time
+        //atur ulang waktu
         startTime = SystemClock.uptimeMillis();
 
         TransitionManager.beginDelayedTransition(mContainer);
@@ -283,28 +280,27 @@ public class RecordAudioDialogFragment extends DialogFragment implements View.On
     }
 
 
-    // updates the visualizer every 50 milliseconds
     Runnable updateVisualizer = new Runnable() {
         @Override
         public void run() {
-            if (mState == STATE_RECORDING) // if we are already recording
+            if (mState == STATE_RECORDING)
             {
-                // get the current amplitude
-                int x = mRecorder.getMaxAmplitude();
-                mVisualizer.addAmplitude(x); // update the VisualizeView
-                mVisualizer.invalidate(); // refresh the VisualizerView
 
-                // update in 40 milliseconds
+                int x = mRecorder.getMaxAmplitude();
+                mVisualizer.addAmplitude(x);
+                mVisualizer.invalidate();
+
+
                 mVizHandler.postDelayed(this, REPEAT_INTERVAL_VIZ);
             }
         }
     };
 
-    // updates the visualizer every 50 milliseconds
+
     Runnable updateTime = new Runnable() {
         @Override
         public void run() {
-            if (mState == STATE_RECORDING || mState == STATE_PLAYING) // if we are recording or playing
+            if (mState == STATE_RECORDING || mState == STATE_PLAYING)
             {
                 long elapsedMillis = SystemClock.uptimeMillis() - startTime;
 

@@ -33,9 +33,6 @@ public class SelectImageSourceDialogFragment extends DialogFragment implements V
 
 
     public SelectImageSourceDialogFragment() {
-        // Empty constructor is required for DialogFragment
-        // Make sure not to add arguments to the constructor
-        // Use `newInstance` instead as shown below
     }
 
     public static SelectImageSourceDialogFragment newInstance() {
@@ -50,15 +47,12 @@ public class SelectImageSourceDialogFragment extends DialogFragment implements V
 
         PackageManager manager = getActivity().getPackageManager();
 
-        //generate the intent to get the application list
+
         Intent cameraIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
         Intent galleryIntent = new Intent(Intent.ACTION_PICK, android.provider.MediaStore.Images.Media.INTERNAL_CONTENT_URI);
 
         List<ResolveInfo> cameraAppList = manager.queryIntentActivities(cameraIntent, 0);
         List<ResolveInfo> galleryAppList = manager.queryIntentActivities(galleryIntent, 0);
-
-        //sort the list
-        //Collections.sort(applicationList, new ResolveInfo.DisplayNameComparator(manager));
 
         if (cameraAppList.size() > 0)
             mCameraDrawable = cameraAppList.get(0).loadIcon(manager);

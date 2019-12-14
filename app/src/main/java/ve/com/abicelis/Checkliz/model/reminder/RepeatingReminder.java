@@ -26,7 +26,7 @@ public class RepeatingReminder extends Reminder implements Serializable {
     private Calendar repeatEndDate;
 
 
-    public RepeatingReminder() {} //Parameter-less argument for Reminder creation
+    public RepeatingReminder() {}
 
     public RepeatingReminder(@NonNull Calendar date, @NonNull Time time, @NonNull ReminderRepeatType repeatType, int repeatInterval,
                              @NonNull ReminderRepeatEndType repeatEndType, int repeatEndNumberOfEvents, @Nullable Calendar repeatEndDate) {

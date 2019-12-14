@@ -84,8 +84,6 @@ public class LocationBasedReminderDetailFragment extends Fragment implements OnM
                 mReminder.getEnteringExitingString(getActivity())) );
 
 
-        // Get the SupportMapFragment and request notification
-        // when the map is ready to be used.
         SupportMapFragment mapFragment = (SupportMapFragment) getChildFragmentManager().findFragmentById(R.id.fragment_reminder_location_based_map);
         mapFragment.getMapAsync(this);
         return rootView;
@@ -94,11 +92,6 @@ public class LocationBasedReminderDetailFragment extends Fragment implements OnM
     @Override
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
-        /*
-         * Request location permission, so that we can get the location of the
-         * device. The result of the permission request is handled by a callback,
-         * onRequestPermissionsResult.
-         */
         if (ActivityCompat.checkSelfPermission(getActivity(), Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED)
             setUpMap();
         else
@@ -108,11 +101,9 @@ public class LocationBasedReminderDetailFragment extends Fragment implements OnM
     @SuppressWarnings({"MissingPermission"})
     private void setUpMap() {
         mMap.setMyLocationEnabled(true);
-        //mMap.setPadding(0, ConversionUtil.dpToPx(68, getResources()), 0, 0);
         mMap.getUiSettings().setMyLocationButtonEnabled(true);
 
 
-        //Add circle and marker
         int strokeColor = ContextCompat.getColor(getActivity(), R.color.map_circle_stroke);
         int shadeColor = ContextCompat.getColor(getActivity(), R.color.map_circle_shade);
         LatLng latLng = ConversionUtil.placeToLatLng(mReminder.getPlace());
@@ -124,8 +115,6 @@ public class LocationBasedReminderDetailFragment extends Fragment implements OnM
                 .strokeWidth(2));
         mMap.addMarker(new MarkerOptions().position(latLng));
 
-        //Move camera
-        //mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(latlng, 15), 1000, null);  //Zoom level 15 = Streets, 1000ms animation
         CameraPosition cameraPos = new CameraPosition.Builder().tilt(60).target(latLng).zoom(15).build();
         mMap.animateCamera(CameraUpdateFactory.newCameraPosition(cameraPos), 1000, null);
     }
@@ -139,10 +128,8 @@ public class LocationBasedReminderDetailFragment extends Fragment implements OnM
                                            @NonNull int[] grantResults) {
         switch (requestCode) {
             case PERMISSION_REQUEST_ACCESS_FINE_LOCATION_SHOW_ICON_IN_MAP:
-                // If request is cancelled, the result arrays are empty.
                 if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED)
                     setUpMap();
-                //TODO: Else Error message no permissions!
                 break;
         }
 

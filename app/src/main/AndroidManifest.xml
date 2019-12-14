@@ -2,10 +2,10 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="ve.com.abicelis.Checkliz">
 
-    <!--FOR USING THE CAMERA-->
+    <!--pakai kamera-->
     <uses-feature android:name="android.hardware.camera" />
 
-    <!-- PERMISSIONS -->
+    <!-- ini untuk izin -->
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.RECORD_AUDIO" />
@@ -22,12 +22,12 @@
         android:theme="@style/AppTheme">
 
 
-        <!--Embed the version of Google Play services that this app was compiled with.-->
+        <!--ini embed-->
         <meta-data
             android:name="com.google.android.gms.version"
             android:value="@integer/google_play_services_version" />
 
-        <!--Maps API key. See app's build.gradle to check how Gradle copies the API key from gradle.properties file to @string/google_maps_key.-->
+        <!--ini map-->
         <meta-data
             android:name="com.google.android.geo.API_KEY"
             android:value="@string/google_maps_key" />
@@ -101,7 +101,7 @@
 
 
 
-        <!--FILE PROVIDER FOR CAMERA-->
+        <!--kamera-->
         <provider
             android:authorities="ve.com.abicelis.Checkliz.fileprovider"
             android:name="android.support.v4.content.FileProvider"
@@ -113,7 +113,7 @@
         </provider>
 
 
-        <!-- RECEIVERS -->
+        <!-- penerima -->
         <receiver android:name="ve.com.abicelis.Checkliz.app.services.BootCompletedBroadcastReceiver" android:enabled="true" android:exported="false">
             <intent-filter>
                 <action android:name="android.intent.action.BOOT_COMPLETED"/>
@@ -122,17 +122,15 @@
         <receiver android:name="ve.com.abicelis.Checkliz.app.services.TriggerTaskNotificationReceiver" />
 
 
-        <!-- SERVICES -->
-        <!--Notification Service-->
+        <!-- servis -->
+        <!--notifikasi-->
         <service android:name="ve.com.abicelis.Checkliz.app.services.NotificationIntentService" />
 
-        <!--TaskAction IntentService-->
+        <!--tempat task-->
         <service android:name="ve.com.abicelis.Checkliz.app.services.TaskActionsIntentService" />
 
-        <!--Geofencing Service-->
         <service android:name="ve.com.abicelis.Checkliz.app.services.GeofenceNotificationIntentService"/>
 
-        <!-- FetchAddress Service -->
         <service
             android:name="ve.com.abicelis.Checkliz.app.services.FetchAddressIntentService"
             android:exported="false"/>

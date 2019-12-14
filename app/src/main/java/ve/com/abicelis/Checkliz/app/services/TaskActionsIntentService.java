@@ -41,7 +41,7 @@ public class TaskActionsIntentService extends IntentService {
 
             if(taskId != -1) {
 
-                //Dismiss the notification
+                //hilangkan notifikasi
                 NotificationManager mNotifyMgr = (NotificationManager) getApplicationContext().getSystemService(NOTIFICATION_SERVICE);
                 mNotifyMgr.cancel(taskId);
 
@@ -61,7 +61,7 @@ public class TaskActionsIntentService extends IntentService {
             int taskId = intent.getIntExtra(PARAM_TASK_ID, -1);
 
             if(taskId != -1) {
-                //Dismiss the notification
+                //hilangkan notifikasi
                 NotificationManager mNotifyMgr = (NotificationManager) getApplicationContext().getSystemService(NOTIFICATION_SERVICE);
                 mNotifyMgr.cancel(taskId);
 
@@ -91,10 +91,8 @@ public class TaskActionsIntentService extends IntentService {
 
                     dao.updateTask(task);
 
-                    //Remove task from triggeredTasks list
                     SharedPreferenceUtil.removeIdFromTriggeredTasks(getApplicationContext(), task.getId());
 
-                    //Update alarms
                     AlarmManagerUtil.updateAlarms(getApplicationContext());
 
                 } catch (CouldNotGetDataException | CouldNotUpdateDataException e) {

@@ -62,7 +62,7 @@ public class ListAttachmentViewHolder extends RecyclerView.ViewHolder implements
     private void setUpRecyclerView() {
         List<ListItemAttachment> items = mCurrent.getItems();
 
-        if(items.size() == 0 || items.get(items.size()-1).getText() != null)   //If no items or last item of list isn't blank, add a blank item
+        if(items.size() == 0 || items.get(items.size()-1).getText() != null)
             items.add(new ListItemAttachment());
 
         mLayoutManager = new LinearLayoutManager(mActivity, LinearLayoutManager.VERTICAL, false);

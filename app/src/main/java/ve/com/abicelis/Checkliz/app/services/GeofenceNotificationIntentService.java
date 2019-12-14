@@ -41,16 +41,12 @@ public class GeofenceNotificationIntentService extends IntentService {
         }
 
 
-        // Get the transition type.
+        // tipe transisi
         int geofenceTransition = geofencingEvent.getGeofenceTransition();
-
-        // Log the transition type
         handleLogTransition(geofenceTransition);
 
 
-        // Test that the reported transition was of interest.
         if (geofenceTransition == Geofence.GEOFENCE_TRANSITION_EXIT
-                //|| geofenceTransition == Geofence.GEOFENCE_TRANSITION_ENTER   //Skipping this transition because of alert spam issues
                 || geofenceTransition == Geofence.GEOFENCE_TRANSITION_DWELL
                 ) {
 
@@ -66,7 +62,7 @@ public class GeofenceNotificationIntentService extends IntentService {
                     String notificationTitle = getGeofenceNotificationTitle(geofenceTransition, geofence);
                     String notificationText = getGeofenceNotificationText(tasks);
 
-                    // Send notification and log the transition details.
+
                     NotificationUtil.displayLocationBasedNotification(this, Integer.valueOf(geofence.getRequestId()), notificationTitle, notificationText, tasks);
                     Log.i(TAG, notificationTitle + " " + notificationText);
                 }
@@ -104,7 +100,6 @@ public class GeofenceNotificationIntentService extends IntentService {
                 transition = getResources().getString(R.string.notification_service_geofence_exit);
                 break;
             case Geofence.GEOFENCE_TRANSITION_DWELL:
-                //transition = getResources().getString(R.string.notification_service_geofence_dwell);
                 transition = getResources().getString(R.string.notification_service_geofence_enter);
 
                 break;

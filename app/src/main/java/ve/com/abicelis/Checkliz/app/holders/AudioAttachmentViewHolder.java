@@ -138,7 +138,6 @@ public class AudioAttachmentViewHolder extends RecyclerView.ViewHolder implement
     }
 
     public void setListeners() {
-        //Listeners set in setData()
     }
 
 
@@ -159,10 +158,10 @@ public class AudioAttachmentViewHolder extends RecyclerView.ViewHolder implement
                 }
             });
 
-            //Get audio duration
+            //waktu audio
             mDurationTime = mPlayer.getDuration();
 
-            //Set remaining time string
+            //untuk waktu
             int remainingSecs = (int) (mDurationTime / 1000);
             int remainingMins = remainingSecs / 60;
             remainingSecs = remainingSecs % 60;
@@ -276,13 +275,11 @@ public class AudioAttachmentViewHolder extends RecyclerView.ViewHolder implement
 
 
 
-    // updates mElapsed mRemaining and mSeekBar
     Runnable updateTime = new Runnable() {
         @Override
         public void run() {
-            if (mPlayer != null && mPlayer.isPlaying()) // if we are playing
+            if (mPlayer != null && mPlayer.isPlaying())
             {
-                //long elapsedMillis = SystemClock.uptimeMillis() - mStartTime;
                 long elapsedMillis = mPlayer.getCurrentPosition();
 
                 int progress = (int) (((float)elapsedMillis / mDurationTime) * 100);

@@ -23,18 +23,10 @@ import com.google.android.gms.location.GeofenceStatusCodes;
 
 import ve.com.abicelis.Checkliz.R;
 
-/**
- * Geofence error codes mapped to error messages.
- */
 public class GeofenceErrorMessages {
-    /**
-     * Prevents instantiation.
-     */
+
     private GeofenceErrorMessages() {}
 
-    /**
-     * Returns the error string for a geofencing error code.
-     */
     public static String getErrorString(Context context, int errorCode) {
         Resources mResources = context.getResources();
         switch (errorCode) {

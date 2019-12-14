@@ -29,7 +29,6 @@ public class AlarmManagerUtil {
         List<Integer> triggeredTasks = SharedPreferenceUtil.getTriggeredTaskList(context);
         Log.d(TAG, "TriggeredTask IDs = " + TextUtils.join(",", triggeredTasks));
 
-        //Get next task to trigger
         TaskTriggerViewModel task;
         try {
             task = new ChecklizDAO(context).getNextTaskToTrigger(triggeredTasks);
@@ -46,17 +45,14 @@ public class AlarmManagerUtil {
             CalendarUtil.copyCalendar(task.getTriggerDateWithTime(), triggerTime);
             triggerTime.add(Calendar.MINUTE, -triggerMinutesBeforeNotification);
 
-            //Build intent
             Intent triggerIntent =  new Intent(context, TriggerTaskNotificationReceiver.class);
             triggerIntent.putExtra(TriggerTaskNotificationReceiver.TASK_ID_EXTRA, task.getTask().getId());
 
             if(triggerTime.compareTo(Calendar.getInstance()) <= 0) {
-                //Trigger now
                 Log.d(TAG, "Triggering now!");
 
                 context.sendBroadcast(triggerIntent);
             } else {
-                //Set Alarm
                 Log.d(TAG, "Programming alarm for " + triggerTime.getTime());
 
                 PendingIntent pendingIntent = PendingIntent.getBroadcast(context, 0, triggerIntent, 0);

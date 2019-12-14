@@ -18,7 +18,7 @@ public class LocationBasedReminder extends Reminder implements Serializable {
     private boolean triggerEntering;
     private boolean triggerExiting;
 
-    public LocationBasedReminder() {} //Parameter-less argument for Reminder creation
+    public LocationBasedReminder() {}
 
     public LocationBasedReminder(int placeId, @NonNull Place place, boolean triggerEntering, boolean triggerExiting) {
         init(placeId, place, triggerEntering, triggerExiting);

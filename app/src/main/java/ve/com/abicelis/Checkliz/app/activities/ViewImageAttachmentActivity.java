@@ -119,7 +119,6 @@ public class ViewImageAttachmentActivity extends AppCompatActivity implements Vi
         mToolbar.setTitle(getResources().getString( R.string.activity_view_image_attachment_title));
         mToolbar.setNavigationIcon(ContextCompat.getDrawable(this, R.drawable.icon_back_material));
 
-        //Set toolbar as actionbar
         setSupportActionBar(mToolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setHomeButtonEnabled(true);
@@ -171,9 +170,6 @@ public class ViewImageAttachmentActivity extends AppCompatActivity implements Vi
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
 
         switch (id) {
@@ -197,7 +193,6 @@ public class ViewImageAttachmentActivity extends AppCompatActivity implements Vi
         returnData.putExtra(IMAGE_ATTACHMENT_EXTRA, mImageAttachment);
         setResult(RESULT_OK, returnData);
         finish();
-        //supportFinishAfterTransition();
     }
 
 

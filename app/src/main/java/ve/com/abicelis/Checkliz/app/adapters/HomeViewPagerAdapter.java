@@ -14,8 +14,8 @@ public class HomeViewPagerAdapter extends FragmentPagerAdapter {
 
     //DATA
     private List<String> mTitleList;
-    private List<Fragment> mFragmentList;                                                   //Holds all of the fragments
-    private SparseArray<HomeListFragment> mRegisteredFragmentList = new SparseArray<>();    //Holds only registered fragments
+    private List<Fragment> mFragmentList;
+    private SparseArray<HomeListFragment> mRegisteredFragmentList = new SparseArray<>();
 
 
     public HomeViewPagerAdapter(FragmentManager fm, List<String> titleList, List<Fragment> fragmentList) {
@@ -42,7 +42,7 @@ public class HomeViewPagerAdapter extends FragmentPagerAdapter {
 
 
 
-    /* These methods are for maintaining and getting registered fragments */
+
 
     public HomeListFragment getRegisteredFragment(int position) {
         return mRegisteredFragmentList.get(position);

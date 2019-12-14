@@ -111,9 +111,6 @@ public class PlaceActivity extends AppCompatActivity implements
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
 
-//        //Enable Lollipop Material Design transitions
-        //        if(android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.LOLLIPOP)
-//        getWindow().requestFeature(Window.FEATURE_CONTENT_TRANSITIONS);
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_place);
@@ -127,8 +124,7 @@ public class PlaceActivity extends AppCompatActivity implements
 
 
 
-        // Build the Play services client for use by the Fused Location Provider and the Places API.
-        // Use the addApi() method to request the Google Places API and the Fused Location Provider.
+
         mGoogleApiClient = new GoogleApiClient.Builder(this)
                 .enableAutoManage(this /* FragmentActivity */,
                         this /* OnConnectionFailedListener */)
@@ -143,17 +139,17 @@ public class PlaceActivity extends AppCompatActivity implements
         mAutocompleteFragment.setOnPlaceSelectedListener(new PlaceSelectionListener() {
             @Override
             public void onPlaceSelected(com.google.android.gms.location.places.Place place) {
-                //Save lat and long
+                //save lat
                 mPlace.setLatitude(place.getLatLng().latitude);
                 mPlace.setLongitude(place.getLatLng().longitude);
 
-                //Add/Update marker and circle
+                //menambah lingkaran
                 if(mPlaceMarker == null)
                     drawMarkerWithCircle(place.getLatLng(), mPlace.getRadius());
                 else
                     updateMarkerWithCircle(place.getLatLng());
 
-                //Move camera
+                //menggerakkan kamera
                 Location loc = new Location(LocationManager.GPS_PROVIDER);
                 loc.setLatitude(mPlace.getLatitude());
                 loc.setLongitude(mPlace.getLongitude());
@@ -169,8 +165,6 @@ public class PlaceActivity extends AppCompatActivity implements
         });
 
         mMapContainer = (RelativeLayout) findViewById(R.id.activity_place_map_container);
-        //mSearch = (EditText) findViewById(R.id.activity_place_search);
-        //mSearchButton = (ImageView) findViewById(R.id.activity_place_search_button);
         mRadius = (SeekBar) findViewById(R.id.activity_place_radius_seekbar);
         mRadius.setMax(14);
         mRadius.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener(){
@@ -211,13 +205,9 @@ public class PlaceActivity extends AppCompatActivity implements
     }
 
 
-    /**
-     * Builds the map when the Google Play services client is successfully connected.
-     */
+
     @Override
     public void onConnected(Bundle connectionHint) {
-        // Get the SupportMapFragment and request notification
-        // when the map is ready to be used.
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.activity_place_map);
         mapFragment.getMapAsync(this);
@@ -261,11 +251,7 @@ public class PlaceActivity extends AppCompatActivity implements
             }
         });
 
-    /*
-     * Request location permission, so that we can get the location of the
-     * device. The result of the permission request is handled by a callback,
-     * onRequestPermissionsResult.
-     */
+    // permintaan untuk map
         if (ContextCompat.checkSelfPermission(this.getApplicationContext(), android.Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED)  {
             setUpMap();
         }
@@ -276,18 +262,17 @@ public class PlaceActivity extends AppCompatActivity implements
     @SuppressWarnings({"MissingPermission"})
     private void setUpMap() {
         mMap.setMyLocationEnabled(true);
-       // mMap.setPadding(0, ConversionUtil.dpToPx(68, getResources()), 0, 0);
         mMap.getUiSettings().setMyLocationButtonEnabled(false);
         mMap.getUiSettings().setCompassEnabled(false);
 
         if(mPlaceToEdit == null) {
-            moveCameraToLastKnownLocation();        //If creating a new place, go to user current location
+            moveCameraToLastKnownLocation();
             mRadius.setProgress(1);
             mRadiusDisplay.setText("100 m");
-            //SnackbarUtil.showSnackbar(mMapContainer, SnackbarUtil.SnackbarType.NOTICE, R.string.activity_place_snackbar_help, SnackbarUtil.SnackbarDuration.SHORT, null);
+
 
         } else {
-            drawMarkerWithCircle(new LatLng(mPlace.getLatitude(), mPlace.getLongitude()), mPlace.getRadius());        //If editing a place, go to that place and add a marker, circle
+            drawMarkerWithCircle(new LatLng(mPlace.getLatitude(), mPlace.getLongitude()), mPlace.getRadius());
 
             Location loc = new Location(LocationManager.GPS_PROVIDER);
             loc.setLatitude(mPlace.getLatitude());
@@ -307,7 +292,7 @@ public class PlaceActivity extends AppCompatActivity implements
     }
 
 
-    /* Map Camera, Marker and Circle helper methods */
+    /* kamera map */
     private void drawMarkerWithCircle(LatLng position, double circleRadiusInMeters){
         int strokeColor = 0xffff0000; //red outline
         int shadeColor = 0x44ff0000; //opaque red fill
@@ -343,10 +328,9 @@ public class PlaceActivity extends AppCompatActivity implements
 
     private void moveCameraToLocation(Location location) {
         if (location != null) {
-            //Point map camera to location
+            //tunjukkan map di hape
             LatLng latlng = new LatLng(location.getLatitude(), location.getLongitude());
 
-            //mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(latlng, 15), 1000, null);  //Zoom level 15 = Streets, 1000ms animation
             CameraPosition cameraPos = new CameraPosition.Builder().tilt(60).target(latlng).zoom(15).build();
             mMap.animateCamera(CameraUpdateFactory.newCameraPosition(cameraPos), 1000, null);
         }
@@ -354,7 +338,7 @@ public class PlaceActivity extends AppCompatActivity implements
 
 
 
-    /* Address helper methods */
+    /* ini untuk alamat */
 
     protected void fetchAddressFromLocation(Location location) {
         mResultReceiver = new AddressResultReceiver(new Handler());
@@ -386,7 +370,7 @@ public class PlaceActivity extends AppCompatActivity implements
     }
 
     private void setAliasAndAddress(String alias, String address) {
-        //Save alias and address
+        //simpan alamat
         mPlace.setAlias(alias);
         mPlace.setAddress(address);
 
@@ -398,7 +382,6 @@ public class PlaceActivity extends AppCompatActivity implements
             mAliasAddressAlreadySet = true;
 
         } else {
-            //TransitionManager.beginDelayedTransition(mMapContainer, new ChangeText().setChangeBehavior(ChangeText.CHANGE_BEHAVIOR_OUT_IN));
             mAlias.setText(alias);
             mAddress.setText(address);
         }
@@ -432,7 +415,6 @@ public class PlaceActivity extends AppCompatActivity implements
 
 
 
-    /* Edit Alias Address Dialog */
 
     @Override
     public void onClick(View v) {
@@ -475,7 +457,6 @@ public class PlaceActivity extends AppCompatActivity implements
         int id = item.getItemId();
         switch (id) {
 
-            // Respond to the mToolbar's back/home button
             case android.R.id.home:
                 onBackPressed();
                 return true;
@@ -503,7 +484,6 @@ public class PlaceActivity extends AppCompatActivity implements
 
         mDao = new ChecklizDAO(getApplicationContext());
 
-        //Verify mPlace is set
         if(mPlace.getLongitude() == 0) {
             SnackbarUtil.showSnackbar(mMapContainer, SnackbarUtil.SnackbarType.ERROR, R.string.activity_place_snackbar_error_no_place, SnackbarUtil.SnackbarDuration.LONG, null);
             return;
@@ -543,7 +523,7 @@ public class PlaceActivity extends AppCompatActivity implements
             }
         };
 
-        //Check if Place is associated with at least one location-based reminder
+        //kalau reminder memilih location based
         List<Task> locationBasedTasks = new ArrayList<>();
         try {
             locationBasedTasks = mDao.getLocationBasedTasksAssociatedWithPlace(mPlace.getId(), -1);
@@ -551,7 +531,7 @@ public class PlaceActivity extends AppCompatActivity implements
             SnackbarUtil.showSnackbar(mMapContainer, SnackbarUtil.SnackbarType.ERROR, R.string.activity_place_snackbar_error_deleting, SnackbarUtil.SnackbarDuration.LONG, null);
         }
 
-        //if there are tasks that use this place, warn user
+
         @StringRes int title = (locationBasedTasks.size() > 0 ? R.string.activity_place_dialog_delete_with_associated_tasks_title : R.string.activity_place_dialog_delete_title);
         @StringRes int message = (locationBasedTasks.size() > 0 ? R.string.activity_place_dialog_delete_with_associated_tasks_message : R.string.activity_place_dialog_delete_message);
         @StringRes int positive = (locationBasedTasks.size() > 0 ? R.string.activity_place_dialog_delete_with_associated_tasks_positive : R.string.activity_place_dialog_delete_positive);

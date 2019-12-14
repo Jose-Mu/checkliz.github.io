@@ -4,7 +4,7 @@ import java.io.Serializable;
 
 public class Place implements Serializable {
 
-    private static final int DEFAULT_RADIUS = 500;  //Default radius 500m
+    private static final int DEFAULT_RADIUS = 500;
 
     private int id;
     private String alias;
@@ -12,9 +12,7 @@ public class Place implements Serializable {
     private double latitude;
     private double longitude;
     private int radius;
-    private boolean isOneOff;       //Places are one-off when a reminder is created with a Place = Other,
-                                    // The place is saved in the database but it isn't a frequent one nor will it appear in saved places
-
+    private boolean isOneOff;
     public Place(String alias, String address, double latitude, double longitude, int radius, boolean isOneOff) {
         this.alias = alias;
         this.address = address;

@@ -62,11 +62,7 @@ public class ChecklizDAO {
     }
 
 
-    /* Get data from database */
-    /**
-     * Returns a List of Tasks (with Reminder and Attachments) which have TaskStatus.UNPROGRAMMED. Sorted Alphabetically by Task Title
-     * @return A List of TaskViewModel
-     */
+
     public List<TaskViewModel> getUnprogrammedTasks() throws CouldNotGetDataException {
         SQLiteDatabase db = mDatabaseHelper.getReadableDatabase();
         List<TaskViewModel> result = new ArrayList<>();
@@ -80,10 +76,10 @@ public class ChecklizDAO {
             while (cursor.moveToNext()) {
                 Task current = getTaskFromCursor(cursor);
 
-                //Try to get the attachments, if there are any
+
                 current.setAttachments(getAttachmentsOfTask(current.getId()));
 
-                //If Task !ReminderType.NONE, throw an error.
+
                 if(current.getReminderType() != ReminderType.NONE)
                     throw new CouldNotGetDataException("Error, found task with TaskStatus=UNPROGRAMMED with ReminderType != NONE");
 
@@ -93,10 +89,9 @@ public class ChecklizDAO {
             cursor.close();
         }
 
-        //Sort tasks by title
+
         Collections.sort(tasks, new UnprogrammedTasksByTitleComparator());
 
-        //Create viewModel
         for (int i = 0; i < tasks.size(); i++) {
             result.add(new TaskViewModel(tasks.get(i), TaskViewModelType.UNPROGRAMMED_REMINDER));
         }
@@ -104,10 +99,6 @@ public class ChecklizDAO {
         return result;
     }
 
-    /**
-     * Returns a List of Tasks (with Reminder and Attachments) which have TaskStatus.PROGRAMMED AND ReminderType.LOCATION_BASED, sorted by Location
-     * @return A List of TaskViewModel
-     */
     public List<TaskViewModel> getLocationBasedTasks(Resources resources) throws CouldNotGetDataException, InvalidClassException {
         SQLiteDatabase db = mDatabaseHelper.getReadableDatabase();
         List<TaskViewModel> result;
@@ -121,13 +112,13 @@ public class ChecklizDAO {
             while (cursor.moveToNext()) {
                 Task current = getTaskFromCursor(cursor);
 
-                if(current.getReminderType() != ReminderType.LOCATION_BASED)      //Skip NON location-based task
+                if(current.getReminderType() != ReminderType.LOCATION_BASED)
                     continue;
 
-                //Try to get the attachments, if there are any
+
                 current.setAttachments(getAttachmentsOfTask(current.getId()));
 
-                //If Task ReminderType.NONE, throw an error.
+
                 if(current.getReminderType() == ReminderType.NONE)
                     throw new CouldNotGetDataException("Error, Task with TaskStatus=PROGRAMMED has ReminderType=NONE");
                 else
@@ -140,18 +131,12 @@ public class ChecklizDAO {
             cursor.close();
         }
 
-        //Generate List<TaskViewModel>
+
         result = new TaskSortingUtil().generateProgrammedTaskHeaderList(tasks, TaskSortType.PLACE, resources);
 
         return result;
     }
 
-
-    /**
-     * Returns a List of Tasks (with Reminder and Attachments) which have TaskStatus.PROGRAMMED
-     * @param sortType TaskSortType enum value with which to sort results. By date or location
-     * @return A List of TaskViewModel
-     */
     public List<TaskViewModel> getProgrammedTasks(@NonNull TaskSortType sortType, boolean includeLocationBasedTasks, Resources resources) throws CouldNotGetDataException, InvalidClassException {
         SQLiteDatabase db = mDatabaseHelper.getReadableDatabase();
         List<TaskViewModel> result;
@@ -165,13 +150,13 @@ public class ChecklizDAO {
             while (cursor.moveToNext()) {
                 Task current = getTaskFromCursor(cursor);
 
-                if(!includeLocationBasedTasks && current.getReminderType() == ReminderType.LOCATION_BASED)      //Skip location-based task
+                if(!includeLocationBasedTasks && current.getReminderType() == ReminderType.LOCATION_BASED)
                     continue;
 
-                //Try to get the attachments, if there are any
+
                 current.setAttachments(getAttachmentsOfTask(current.getId()));
 
-                //If Task ReminderType.NONE, throw an error.
+
                 if(current.getReminderType() == ReminderType.NONE)
                     throw new CouldNotGetDataException("Error, Task with TaskStatus=PROGRAMMED has ReminderType=NONE");
                 else
@@ -184,17 +169,12 @@ public class ChecklizDAO {
             cursor.close();
         }
 
-        //Generate List<TaskViewModel>
+
         result = new TaskSortingUtil().generateProgrammedTaskHeaderList(tasks, sortType, resources);
 
         return result;
     }
 
-    /**
-     * Returns a List of Tasks (with Reminder and Attachments) which have TaskStatus.DONE
-     * @param sortType TaskSortType enum value with which to sort results. By date or location
-     * @return A List of TaskViewModel
-     */
     public List<TaskViewModel> getDoneTasks(@NonNull TaskSortType sortType, Resources resources) throws CouldNotGetDataException, InvalidClassException {
         SQLiteDatabase db = mDatabaseHelper.getReadableDatabase();
         List<TaskViewModel> result = new ArrayList<>();
@@ -208,10 +188,8 @@ public class ChecklizDAO {
             while (cursor.moveToNext()) {
                 Task current = getTaskFromCursor(cursor);
 
-                //Try to get the attachments, if there are any
                 current.setAttachments(getAttachmentsOfTask(current.getId()));
 
-                //If Task has reminder, get it
                 if(current.getReminderType() != ReminderType.NONE)
                     current.setReminder(getReminderOfTask(current.getId(), current.getReminderType()));
 
@@ -222,16 +200,12 @@ public class ChecklizDAO {
             cursor.close();
         }
 
-        //Generate List<TaskViewModel> This List will be sorted and grouped!
+
         result = new TaskSortingUtil().generateDoneTaskHeaderList(tasks, sortType, resources);
 
         return result;
     }
 
-    /**
-     * Returns a List of Tasks (Status:PROGRAMMED) which have Location-Based reminders of a particular Place, set to trigger either entering or exiting or both.
-     * @param placeId The ID of the place with which to look for Tasks
-     */
     public List<Task> getLocationBasedTasksAssociatedWithPlace(int placeId, int geofenceTransition) throws CouldNotGetDataException {
         List<Task> tasks = new ArrayList<>();
         SQLiteDatabase db = mDatabaseHelper.getReadableDatabase();
@@ -278,12 +252,6 @@ public class ChecklizDAO {
         return tasks;
     }
 
-
-    /**
-     * Returns the next PROGRAMMED task(With ONE-TIME or REPEATING reminder) to occur
-     * @param alreadyTriggeredTaskList an optional task list to not include in the search
-     * @return A single TaskTriggerViewModel or null of there are no tasks
-     */
     public TaskTriggerViewModel getNextTaskToTrigger(@NonNull List<Integer> alreadyTriggeredTaskList) throws CouldNotGetDataException {
         SQLiteDatabase db = mDatabaseHelper.getReadableDatabase();
         Task nextTaskToTrigger = null;
@@ -357,10 +325,6 @@ public class ChecklizDAO {
     }
 
 
-    /**
-     * Returns a Task (with Reminder and Attachments) given a taskId
-     * @param taskId    The ID of the Task to get.
-     */
     public Task getTask(int taskId) throws CouldNotGetDataException, SQLiteConstraintException {
         SQLiteDatabase db = mDatabaseHelper.getReadableDatabase();
         Cursor cursor = db.query(ChecklizContract.TaskTable.TABLE_NAME, null, ChecklizContract.PlaceTable._ID + "=?",
@@ -380,10 +344,6 @@ public class ChecklizDAO {
         return task;
     }
 
-
-    /**
-     * Returns a List of all the Places in the database.
-     */
     public List<Place> getPlaces() {
         List<Place> places = new ArrayList<>();
 
@@ -401,9 +361,6 @@ public class ChecklizDAO {
         return places;
     }
 
-    /**
-     * Returns a List of Places associated with PROGRAMMED tasks with location-based reminders
-     */
     public List<Place> getActivePlaces() {
         List<Place> places = new ArrayList<>();
         int taskCount;
@@ -432,14 +389,6 @@ public class ChecklizDAO {
         return places;
     }
 
-
-
-
-
-    /**
-     * Returns a Place given a placeId.
-     * @param placeId The id of the place
-     */
     public Place getPlace(int placeId) throws PlaceNotFoundException, SQLiteConstraintException {
         SQLiteDatabase db = mDatabaseHelper.getReadableDatabase();
         Cursor cursor = db.query(ChecklizContract.PlaceTable.TABLE_NAME, null, ChecklizContract.PlaceTable._ID + "=?",
@@ -454,11 +403,6 @@ public class ChecklizDAO {
         return getPlaceFromCursor(cursor);
     }
 
-
-    /**
-     * Returns a List of Attachments associated to a Task.
-     * @param taskId The id of the Task
-     */
     public ArrayList<Attachment> getAttachmentsOfTask(int taskId) {
         ArrayList<Attachment> attachments = new ArrayList<>();
         SQLiteDatabase db = mDatabaseHelper.getReadableDatabase();
@@ -477,12 +421,6 @@ public class ChecklizDAO {
         return attachments;
     }
 
-
-    /**
-     * Returns a Reminder given its taskId and reminderType
-     * @param taskId The ID of the task
-     * @param reminderType The Type of reminder
-     */
     public Reminder getReminderOfTask(int taskId, @NonNull ReminderType reminderType) throws  CouldNotGetDataException, SQLiteConstraintException {
         SQLiteDatabase db = mDatabaseHelper.getWritableDatabase();
         Reminder reminder;
@@ -541,21 +479,6 @@ public class ChecklizDAO {
     }
 
 
-
-
-
-
-
-
-
-
-
-    /* Delete data from database */
-
-    /**
-     * Deletes a single Place, given its ID, also deletes Location-based reminders associated with place and updates Task ReminderType to NONE
-     * @param placeId The ID of the place to delete
-     */
     public boolean deletePlace(int placeId) throws CouldNotDeleteDataException {
         SQLiteDatabase db = mDatabaseHelper.getWritableDatabase();
 
@@ -566,7 +489,7 @@ public class ChecklizDAO {
             throw new CouldNotDeleteDataException("Error getting Task list associated with Place. PlaceID=" + placeId, e);
         }
 
-        if(tasks.size() > 0) {      //Remove Location-based reminders from task, and update task ReminderType to NONE.
+        if(tasks.size() > 0) {
             for (Task task : tasks) {
                 deleteReminderOfTask(task.getId());
                 task.setStatus(TaskStatus.UNPROGRAMMED);
@@ -584,11 +507,6 @@ public class ChecklizDAO {
                 new String[]{String.valueOf(placeId)}) > 0;
     }
 
-
-    /**
-     * Deletes all Attachments linked to an Task, given the task's ID
-     * @param taskId The ID of the reminder whose attachments will be deleted
-     */
     public boolean deleteAttachmentsOfTask(int taskId) throws CouldNotDeleteDataException {
         SQLiteDatabase db = mDatabaseHelper.getWritableDatabase();
 
@@ -597,10 +515,6 @@ public class ChecklizDAO {
                 new String[]{String.valueOf(taskId)}) > 0;
     }
 
-    /**
-     * Deletes a single attachment, given its ID
-     * @param attachmentId The ID of the attachment to be deleted
-     */
     public boolean deleteAttachment(int attachmentId) throws CouldNotDeleteDataException {
         SQLiteDatabase db = mDatabaseHelper.getWritableDatabase();
 
@@ -609,11 +523,6 @@ public class ChecklizDAO {
                 new String[]{String.valueOf(attachmentId)}) > 0;
     }
 
-
-    /**
-     * Deletes the Reminder of type ReminderType associated to a Task
-     * @param taskId The ID of the task
-     */
     public void deleteReminderOfTask(int taskId) throws CouldNotDeleteDataException {
         SQLiteDatabase db = mDatabaseHelper.getWritableDatabase();
 
@@ -632,13 +541,6 @@ public class ChecklizDAO {
         db.delete(tableName, whereClause, new String[]{String.valueOf(taskId)});
     }
 
-
-
-
-    /**
-     * Deletes a Task and associated Attachments and Reminder
-     * @param taskId The ID of the task
-     */
     public boolean deleteTask(int taskId) throws CouldNotDeleteDataException {
         SQLiteDatabase db = mDatabaseHelper.getWritableDatabase();
 
@@ -649,15 +551,12 @@ public class ChecklizDAO {
             throw new CouldNotDeleteDataException("Failed to get task from database. TaskID=" + taskId, e);
         }
 
-        //Delete task's attachments
         deleteAttachmentsOfTask(taskId);
 
-        //If task has a reminder, delete it
         if(task.getReminderType() != ReminderType.NONE) {
             deleteReminderOfTask(taskId);
         }
 
-        //Finally, delete the task
         return db.delete(ChecklizContract.TaskTable.TABLE_NAME,
                 ChecklizContract.TaskTable._ID + " =?",
                 new String[]{String.valueOf(taskId)}) > 0;
@@ -665,17 +564,6 @@ public class ChecklizDAO {
     }
 
 
-
-
-
-
-
-    /* Update data on database */
-
-    /**
-     * Updates the information stored about a Place
-     * @param place The Place to update
-     */
     public long updatePlace(Place place) throws CouldNotUpdateDataException {
         SQLiteDatabase db = mDatabaseHelper.getWritableDatabase();
 
@@ -688,10 +576,6 @@ public class ChecklizDAO {
         return count;
     }
 
-    /**
-     * Deletes previous attachments of a task and reinserts them
-     * @param task The Task whose attachments to delete and reinsert
-     */
     public long[] updateAttachmentsOfTask(Task task) throws CouldNotUpdateDataException {
         try {
             deleteAttachmentsOfTask(task.getId());
@@ -709,10 +593,6 @@ public class ChecklizDAO {
         return insertedRowIds;
     }
 
-    /**
-     * Updates the information stored about a List of Attachments
-     * @param attachments The Attachments to update
-     */
     public long[] updateAttachments(ArrayList<Attachment> attachments) throws CouldNotUpdateDataException {
         SQLiteDatabase db = mDatabaseHelper.getWritableDatabase();
         long[] updatedRowIds = new long[attachments.size()];
@@ -723,10 +603,6 @@ public class ChecklizDAO {
         return updatedRowIds;
     }
 
-    /**
-     * Updates the information stored about an Attachment
-     * @param attachment The Attachment to update
-     */
     public long updateAttachment(Attachment attachment) throws CouldNotUpdateDataException {
         SQLiteDatabase db = mDatabaseHelper.getWritableDatabase();
 
@@ -738,14 +614,8 @@ public class ChecklizDAO {
         return updatedRowIds;
     }
 
-    /**
-     * Updates the information stored about a Reminder
-     * @param reminder The Reminder to update
-     */
     public boolean updateReminderOfTask(Reminder reminder, int taskId) throws CouldNotUpdateDataException {
 
-        //Need to delete old reminder and insert new one
-        //Old and New reminderType may be different, which are stored in different tables
         try {
             deleteReminderOfTask(taskId);
         }catch (CouldNotDeleteDataException e) {
@@ -763,11 +633,6 @@ public class ChecklizDAO {
         return true;
     }
 
-
-    /**
-     * Updates the information stored about a Task, its Reminder and its Attachments.
-     * @param task The Task to update
-     */
     public long updateTask(Task task) throws CouldNotUpdateDataException {
         SQLiteDatabase db = mDatabaseHelper.getWritableDatabase();
 
@@ -783,19 +648,6 @@ public class ChecklizDAO {
     }
 
 
-
-
-
-
-
-
-
-    /* Insert data into database */
-
-    /**
-     * Inserts a new Place into the database.
-     * @param place The Place to be inserted
-     */
     public long insertPlace(Place place) throws CouldNotInsertDataException {
         SQLiteDatabase db = mDatabaseHelper.getWritableDatabase();
 
@@ -810,12 +662,6 @@ public class ChecklizDAO {
         return newRowId;
     }
 
-
-    /**
-     * Inserts a List of Attachments associated to an Task, into the database.
-     * @param taskId The id of the Task associated to the Attachments
-     * @param attachments The List of Attachments to be inserted
-     */
     public long[] insertAttachmentsOfTask(int taskId, List<Attachment> attachments) throws CouldNotInsertDataException {
         SQLiteDatabase db = mDatabaseHelper.getWritableDatabase();
         long[] newRowIds = new long[attachments.size()];
@@ -835,12 +681,6 @@ public class ChecklizDAO {
         return newRowIds;
     }
 
-
-    /**
-     * Inserts a new Reminder into the database.
-     * @param taskId The id of the Task associated to the Reminder
-     * @param reminder The Reminder to insert
-     */
     public long insertReminderOfTask(int taskId, Reminder reminder) throws CouldNotInsertDataException {
         SQLiteDatabase db = mDatabaseHelper.getWritableDatabase();
 
@@ -876,10 +716,6 @@ public class ChecklizDAO {
     }
 
 
-    /**
-     * Inserts a new Task and its associated Reminder and Attachments into the database.
-     * @param task The Task (and associated Reminder and Attachments) to insert
-     */
     public long insertTask(Task task) throws CouldNotInsertDataException {
         SQLiteDatabase db = mDatabaseHelper.getWritableDatabase();
 
@@ -891,9 +727,6 @@ public class ChecklizDAO {
         if (newRowId == -1)
             throw new CouldNotInsertDataException("There was a problem inserting the Task: " + task.toString());
 
-
-
-        //Insert Attachments
         if (task.getAttachments() != null && task.getAttachments().size() > 0) {
             try {
                 insertAttachmentsOfTask((int)newRowId, task.getAttachments());
@@ -902,7 +735,6 @@ public class ChecklizDAO {
             }
         }
 
-        //Insert Reminder if it exists
         if (task.getReminder() != null) {
             try {
                 insertReminderOfTask((int)newRowId, task.getReminder());
@@ -916,17 +748,6 @@ public class ChecklizDAO {
 
 
 
-
-
-
-
-
-
-
-
-
-
-    /* Model to ContentValues */
 
     private ContentValues getValuesFromTask(Task task) {
         ContentValues values = new ContentValues();

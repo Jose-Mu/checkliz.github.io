@@ -92,7 +92,7 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
         mDoneTasksListFragment.setArguments(bundle);
 
 
-        //Rebuild lists
+        //z
         titleList.clear();
         fragmentList.clear();
 
@@ -118,7 +118,7 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
 
             @Override
             public void onPageSelected(int position) {
-                //If changing tabs, hide actionMode (ContextMenu)
+                //sembunyi action bar
                 for(int i = 0; i < mHomeViewPagerAdapter.getRegisteredFragments().size(); i++) {
                     int key = mHomeViewPagerAdapter.getRegisteredFragments().keyAt(i);
 
@@ -148,7 +148,7 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
                                            @NonNull int[] grantResults) {
         switch (requestCode) {
             case PERMISSION_REQUEST_ACCESS_FINE_LOCATION_NOTIFICATION_GEOFENCE_SERVICE:
-                // If request is cancelled, the result arrays are empty.
+                // jika request tidak diterima, array 0
                 if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED)
                     doStartNotificationService();
                 else {
@@ -220,29 +220,29 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
                 try {
                     switch (rt) {
                         case NONE:
-                            mHomeViewPagerAdapter.getRegisteredFragment(0).refreshRecyclerView();   //Unprogrammed tasks will always be in tab #1
+                            mHomeViewPagerAdapter.getRegisteredFragment(0).refreshRecyclerView();
                             break;
                         case LOCATION_BASED:
                         case ONE_TIME:
                         case REPEATING:
-                            mHomeViewPagerAdapter.getRegisteredFragment(1).refreshRecyclerView();   //Programmed tasks will always be in tab #1
+                            mHomeViewPagerAdapter.getRegisteredFragment(1).refreshRecyclerView();
                     }
-                }catch (NullPointerException e) {/* Do nothing, the recycler will be refreshed upon creation */}
+                }catch (NullPointerException e) {/* refresh */}
             } else {
-                setupViewPagerAndTabLayout();   //Just refresh everything
+                setupViewPagerAndTabLayout();
             }
         }
 
-        if (requestCode == TaskDetailActivity.TASK_DETAIL_REQUEST_CODE && resultCode == RESULT_OK) {     //Task has been deleted or edited
+        if (requestCode == TaskDetailActivity.TASK_DETAIL_REQUEST_CODE && resultCode == RESULT_OK) {
 
-            //Try to get TASK_DETAIL_RETURN_TASK_POSITION and TASK_DETAIL_RETURN_ACTION_TYPE
+
             if (data.hasExtra(TaskDetailActivity.TASK_DETAIL_RETURN_ACTION_TYPE) && data.hasExtra(TaskDetailActivity.TASK_DETAIL_RETURN_TASK_VIEWPAGER_INDEX)) {
 
                 int position = data.getIntExtra(TaskDetailActivity.TASK_DETAIL_RETURN_TASK_POSITION, -1);
                 int viewPagerIndex = data.getIntExtra(TaskDetailActivity.TASK_DETAIL_RETURN_TASK_VIEWPAGER_INDEX, -1);
 
-                if(position == -1) { //If TaskDetailActivity was called from an android notification, impossible to tell position so refresh all.
-                    setupViewPagerAndTabLayout();   //Just refresh everything
+                if(position == -1) {
+                    setupViewPagerAndTabLayout();
                     return;
                 }
 
@@ -250,16 +250,16 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
                     case TaskDetailActivity.TASK_DETAIL_RETURN_ACTION_DELETED:
                         try {
                             mHomeViewPagerAdapter.getRegisteredFragment(viewPagerIndex).removeViewHolderItem(position);
-                            } catch (NullPointerException e) {/* Do nothing, the recycler will be refreshed upon creation */}
+                            } catch (NullPointerException e) {/* refresh */}
                         break;
                     case TaskDetailActivity.TASK_DETAIL_RETURN_ACTION_EDITED:
                         try {
                             mHomeViewPagerAdapter.getRegisteredFragment(viewPagerIndex).updateViewholderItem(position);
-                        } catch (NullPointerException e) {/* Do nothing, the recycler will be refreshed upon creation */}
+                        } catch (NullPointerException e) {/* refresh */}
                         break;
 
                     case TaskDetailActivity.TASK_DETAIL_RETURN_ACTION_EDITED_REMINDER:
-                        setupViewPagerAndTabLayout();   //Just refresh everything
+                        setupViewPagerAndTabLayout();
                         break;
                 }
             } else {

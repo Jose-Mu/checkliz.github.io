@@ -26,7 +26,7 @@ public class CalendarUtil {
     }
 
     public static long getDifferenceMinutesBetween(Calendar a, Calendar b) {
-        long differenceMinutes = ( a.getTimeInMillis() - b.getTimeInMillis() ) / 60000; //60 * 1000    toMinutes * toSeconds
+        long differenceMinutes = ( a.getTimeInMillis() - b.getTimeInMillis() ) / 60000;
         return differenceMinutes;
     }
 

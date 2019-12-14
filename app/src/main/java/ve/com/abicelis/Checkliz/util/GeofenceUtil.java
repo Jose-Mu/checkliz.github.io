@@ -32,8 +32,6 @@ public class GeofenceUtil {
 
     //DATA
     private static PendingIntent mGeofencePendingIntent;
-
-    /* GeoFence management methods */
     public static void addGeofences(final Context context, GoogleApiClient googleApiClient) {
         checkGoogleApiClient(googleApiClient);
         List<Place> places = new ChecklizDAO(context).getActivePlaces();
@@ -89,10 +87,6 @@ public class GeofenceUtil {
     }
 
 
-
-
-    /* GeoFence helper methods */
-
     private static void checkGoogleApiClient(GoogleApiClient googleApiClient) {
         if(googleApiClient == null || !googleApiClient.isConnected()) {
             throw new IllegalStateException("Google API client must be connected");
@@ -112,8 +106,6 @@ public class GeofenceUtil {
 
         for (Place place : places){
             geofenceList.add(new Geofence.Builder()
-                    // Set the request ID of the geofence. This is a string to identify this
-                    // geofence.
                     .setRequestId(String.valueOf(place.getId()))
                     .setCircularRegion(
                             place.getLatitude(),
@@ -123,7 +115,6 @@ public class GeofenceUtil {
                     .setExpirationDuration(NEVER_EXPIRE)
                     .setLoiteringDelay(LOITERING_DWELL_DELAY)
                     .setTransitionTypes(Geofence.GEOFENCE_TRANSITION_ENTER | Geofence.GEOFENCE_TRANSITION_EXIT | Geofence.GEOFENCE_TRANSITION_DWELL)
-                    //.setTransitionTypes(Geofence.GEOFENCE_TRANSITION_EXIT | Geofence.GEOFENCE_TRANSITION_DWELL)
                     .build());
         }
 
@@ -131,14 +122,11 @@ public class GeofenceUtil {
     }
 
     private static PendingIntent getGeofencePendingIntent(Context context) {
-        // Reuse the PendingIntent if we already have it.
         if (mGeofencePendingIntent != null) {
             return mGeofencePendingIntent;
         }
 
         Intent intent = new Intent(context, GeofenceNotificationIntentService.class);
-        // We use FLAG_UPDATE_CURRENT so that we get the same pending intent back when
-        // calling addGeofences() and removeGeofences().
         mGeofencePendingIntent =  PendingIntent.getService(context, 0, intent, PendingIntent.
                 FLAG_UPDATE_CURRENT);
 
