@@ -19,11 +19,7 @@
         android:orderInCategory="100"
         android:title="@string/menu_home_action_about"
         app:showAsAction="never" />
-    <item
-        android:id="@+id/menu_home_rate"
-        android:orderInCategory="100"
-        android:title="@string/menu_home_action_rate"
-        app:showAsAction="never" />
+
     <item
         android:id="@+id/menu_home_login"
         android:orderInCategory="100"

@@ -9,7 +9,7 @@ import java.util.List;
 import java.util.Locale;
 
 import ve.com.abicelis.Checkliz.R;
-import ve.com.abicelis.Checkliz.database.RemindyDAO;
+import ve.com.abicelis.Checkliz.database.ChecklizDAO;
 import ve.com.abicelis.Checkliz.exception.CouldNotGetDataException;
 import ve.com.abicelis.Checkliz.model.Task;
 import ve.com.abicelis.Checkliz.model.reminder.OneTimeReminder;
@@ -40,7 +40,7 @@ public class TriggerTaskNotificationReceiver extends BroadcastReceiver {
         if(taskId != -1) {
             Task task;
             try {
-                task = new RemindyDAO(context).getTask(taskId);
+                task = new ChecklizDAO(context).getTask(taskId);
             } catch (CouldNotGetDataException e) {
                //TODO: Show some kind of error here
                 return;

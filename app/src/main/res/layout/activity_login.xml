@@ -93,7 +93,7 @@
         android:layout_height="wrap_content"/>
     <ImageView
         android:layout_centerHorizontal="true"
-        android:src="@drawable/icon_remindy"
+        android:src="@drawable/icon_checkliz"
 
         android:layout_width="100dp"
         android:layout_height="100dp"/>

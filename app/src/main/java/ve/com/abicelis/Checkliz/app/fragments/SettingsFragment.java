@@ -22,7 +22,7 @@ import ve.com.abicelis.Checkliz.R;
 import ve.com.abicelis.Checkliz.app.activities.AboutActivity;
 import ve.com.abicelis.Checkliz.app.activities.PlaceListActivity;
 import ve.com.abicelis.Checkliz.app.activities.SettingsActivity;
-import ve.com.abicelis.Checkliz.database.RemindyDbHelper;
+import ve.com.abicelis.Checkliz.database.ChecklizDbHelper;
 import ve.com.abicelis.Checkliz.enums.DateFormat;
 import ve.com.abicelis.Checkliz.enums.TriggerMinutesBeforeNotificationType;
 import ve.com.abicelis.Checkliz.util.PermissionUtil;
@@ -41,7 +41,6 @@ public class SettingsFragment extends PreferenceFragmentCompat {
     private Preference mBackup;
     private Preference mRestore;
     private Preference mAbout;
-    private Preference mRate;
     private Preference mContact;
 
 
@@ -129,16 +128,7 @@ public class SettingsFragment extends PreferenceFragmentCompat {
         });
 
 
-        mRate = findPreference(getResources().getString(R.string.remindy_settings_rate_key));
-        mRate.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
-            @Override
-            public boolean onPreferenceClick(Preference preference) {
-                Intent playStoreIntent = new Intent(Intent.ACTION_VIEW);
-                playStoreIntent.setData(Uri.parse(getResources().getString(R.string.url_market)));
-                startActivity(playStoreIntent);
-                return true;
-            }
-        });
+
         mContact = findPreference(getResources().getString(R.string.remindy_settings_contact_key));
         mContact.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
             @Override
@@ -188,7 +178,7 @@ public class SettingsFragment extends PreferenceFragmentCompat {
 
     private void handleExportAction() {
         try {
-            if(new RemindyDbHelper(getActivity()).exportDatabase())
+            if(new ChecklizDbHelper(getActivity()).exportDatabase())
                 Toast.makeText(getActivity(), getResources().getString(R.string.backup_successful), Toast.LENGTH_SHORT).show();
             else
                 Toast.makeText(getActivity(), getResources().getString(R.string.backup_not_successful), Toast.LENGTH_SHORT).show();
@@ -199,7 +189,7 @@ public class SettingsFragment extends PreferenceFragmentCompat {
 
     private void handleImportAction() {
         try {
-            if(new RemindyDbHelper(getActivity()).importDatabase()) {
+            if(new ChecklizDbHelper(getActivity()).importDatabase()) {
                 Toast.makeText(getActivity(), getResources().getString(R.string.restore_successful), Toast.LENGTH_SHORT).show();
                 //TODO: Yes, this is a dirty hack, someday to be fixed
                 ((SettingsActivity)getActivity()).mForceHomeRefresh = true;

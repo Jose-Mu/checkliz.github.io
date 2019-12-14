@@ -68,7 +68,7 @@ public class NotificationUtil {
 
         NotificationCompat.Builder mBuilder;
         mBuilder = new NotificationCompat.Builder(context)
-                .setSmallIcon(R.drawable.icon_remindy_notification_small)
+                .setSmallIcon(R.drawable.icon_checkliz_notification_small)
                 .setColor(ContextCompat.getColor(context, R.color.primary))
                 .setVibrate(new long[] { 50, 50, 200, 50 })
                 .setLights(ContextCompat.getColor(context, R.color.primary), 3000, 3000)
@@ -109,7 +109,7 @@ public class NotificationUtil {
 
         NotificationCompat.Builder mBuilder;
         mBuilder = new NotificationCompat.Builder(context, Constants.NOTIFICATION_CHANNEL_ID)
-                .setSmallIcon(R.drawable.icon_remindy_notification_small)
+                .setSmallIcon(R.drawable.icon_checkliz_notification_small)
                 .setColor(ContextCompat.getColor(context, R.color.primary))
                 .setVibrate(new long[] { 50, 50, 200, 50 })
                 .setLights(ContextCompat.getColor(context, R.color.primary), 3000, 3000)

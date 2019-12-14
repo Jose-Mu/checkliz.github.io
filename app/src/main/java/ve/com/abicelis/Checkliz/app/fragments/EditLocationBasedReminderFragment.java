@@ -29,7 +29,7 @@ import java.util.List;
 
 import ve.com.abicelis.Checkliz.R;
 import ve.com.abicelis.Checkliz.app.interfaces.TaskDataInterface;
-import ve.com.abicelis.Checkliz.database.RemindyDAO;
+import ve.com.abicelis.Checkliz.database.ChecklizDAO;
 import ve.com.abicelis.Checkliz.model.Place;
 import ve.com.abicelis.Checkliz.model.reminder.LocationBasedReminder;
 
@@ -41,7 +41,7 @@ public class EditLocationBasedReminderFragment extends Fragment implements TaskD
 
 
     //DATA
-    private RemindyDAO mDao;
+    private ChecklizDAO mDao;
     private List<String> mPlaceTypes = new ArrayList<>();
     private List<Place> mPlaces;
     private LocationBasedReminder mReminder;
@@ -67,7 +67,7 @@ public class EditLocationBasedReminderFragment extends Fragment implements TaskD
         else
             Toast.makeText(getActivity(), getResources().getString(R.string.error_unexpected), Toast.LENGTH_SHORT).show();
 
-        mDao = new RemindyDAO(getActivity());
+        mDao = new ChecklizDAO(getActivity());
         mPlaces = mDao.getPlaces();
 
         //Set mReminder to the first place if empty

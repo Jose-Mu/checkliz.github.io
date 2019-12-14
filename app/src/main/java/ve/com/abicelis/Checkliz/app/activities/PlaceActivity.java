@@ -58,7 +58,7 @@ import ve.com.abicelis.Checkliz.R;
 import ve.com.abicelis.Checkliz.app.dialogs.EditPlaceDialogFragment;
 import ve.com.abicelis.Checkliz.app.services.AddressResultReceiver;
 import ve.com.abicelis.Checkliz.app.services.FetchAddressIntentService;
-import ve.com.abicelis.Checkliz.database.RemindyDAO;
+import ve.com.abicelis.Checkliz.database.ChecklizDAO;
 import ve.com.abicelis.Checkliz.enums.TapTargetSequenceType;
 import ve.com.abicelis.Checkliz.exception.CouldNotDeleteDataException;
 import ve.com.abicelis.Checkliz.exception.CouldNotGetDataException;
@@ -91,7 +91,7 @@ public class PlaceActivity extends AppCompatActivity implements
     private Marker mPlaceMarker;
     private Circle mPlaceCircle;
     private boolean mAliasAddressAlreadySet;
-    private RemindyDAO mDao;
+    private ChecklizDAO mDao;
 
     //UI
     private PlaceAutocompleteFragment mAutocompleteFragment;
@@ -501,7 +501,7 @@ public class PlaceActivity extends AppCompatActivity implements
             }
         };
 
-        mDao = new RemindyDAO(getApplicationContext());
+        mDao = new ChecklizDAO(getApplicationContext());
 
         //Verify mPlace is set
         if(mPlace.getLongitude() == 0) {
@@ -532,7 +532,7 @@ public class PlaceActivity extends AppCompatActivity implements
     }
 
     private void handleDeletePlace() {
-        mDao = new RemindyDAO(getApplicationContext());
+        mDao = new ChecklizDAO(getApplicationContext());
 
         final BaseTransientBottomBar.BaseCallback<Snackbar> callback = new BaseTransientBottomBar.BaseCallback<Snackbar>() {
             @Override

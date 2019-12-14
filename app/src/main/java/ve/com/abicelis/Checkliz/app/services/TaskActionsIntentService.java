@@ -7,7 +7,7 @@ import android.support.annotation.Nullable;
 import android.widget.Toast;
 
 import ve.com.abicelis.Checkliz.R;
-import ve.com.abicelis.Checkliz.database.RemindyDAO;
+import ve.com.abicelis.Checkliz.database.ChecklizDAO;
 import ve.com.abicelis.Checkliz.enums.TaskStatus;
 import ve.com.abicelis.Checkliz.exception.CouldNotGetDataException;
 import ve.com.abicelis.Checkliz.exception.CouldNotUpdateDataException;
@@ -45,7 +45,7 @@ public class TaskActionsIntentService extends IntentService {
                 NotificationManager mNotifyMgr = (NotificationManager) getApplicationContext().getSystemService(NOTIFICATION_SERVICE);
                 mNotifyMgr.cancel(taskId);
 
-                RemindyDAO dao = new RemindyDAO(getApplicationContext());
+                ChecklizDAO dao = new ChecklizDAO(getApplicationContext());
                 try{
                     Task task = dao.getTask(taskId);
                     task.setDoneDate(CalendarUtil.getNewInstanceZeroedCalendar());
@@ -65,7 +65,7 @@ public class TaskActionsIntentService extends IntentService {
                 NotificationManager mNotifyMgr = (NotificationManager) getApplicationContext().getSystemService(NOTIFICATION_SERVICE);
                 mNotifyMgr.cancel(taskId);
 
-                RemindyDAO dao = new RemindyDAO(getApplicationContext());
+                ChecklizDAO dao = new ChecklizDAO(getApplicationContext());
                 try {
                     Task task = dao.getTask(taskId);
 

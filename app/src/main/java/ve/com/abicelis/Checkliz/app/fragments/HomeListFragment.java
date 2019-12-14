@@ -26,7 +26,7 @@ import ve.com.abicelis.Checkliz.R;
 import ve.com.abicelis.Checkliz.app.activities.TaskDetailActivity;
 import ve.com.abicelis.Checkliz.app.adapters.HomeAdapter;
 import ve.com.abicelis.Checkliz.app.interfaces.ViewHolderClickListener;
-import ve.com.abicelis.Checkliz.database.RemindyDAO;
+import ve.com.abicelis.Checkliz.database.ChecklizDAO;
 import ve.com.abicelis.Checkliz.enums.ReminderType;
 import ve.com.abicelis.Checkliz.enums.TaskSortType;
 import ve.com.abicelis.Checkliz.enums.TaskStatus;
@@ -48,7 +48,7 @@ public class HomeListFragment extends Fragment implements ViewHolderClickListene
     //DATA
     private List<TaskViewModel> mTasks = new ArrayList<>();
     private ViewPagerTaskDisplayType mReminderTypeToDisplay;
-    private RemindyDAO mDao;
+    private ChecklizDAO mDao;
     private TaskSortType mTaskSortType = TaskSortType.DATE;
 
     //UI
@@ -143,7 +143,7 @@ public class HomeListFragment extends Fragment implements ViewHolderClickListene
     public void refreshRecyclerView() {
 
         if(mDao == null)
-            mDao = new RemindyDAO(getActivity().getApplicationContext());
+            mDao = new ChecklizDAO(getActivity().getApplicationContext());
 
         //Clear the list and refresh it with new data, this must be done so the mAdapter
         // doesn't lose track of the reminder list

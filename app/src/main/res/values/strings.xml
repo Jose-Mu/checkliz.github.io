@@ -137,11 +137,11 @@
 
     <string name="remindy_settings_rate_key" translatable="false">Checkliz_settings_rate</string>
     <string name="remindy_settings_rate_title">Rate Checkliz</string>
-    <string name="remindy_settings_rate_summary">Like this app? A 5-star rating is gladly appreciated</string>
+    <string name="remindy_settings_rate_summary">Like this app? Tell Us What To Improve!</string>
 
     <string name="remindy_settings_contact_key" translatable="false">Checkliz_settings_contact</string>
     <string name="remindy_settings_contact_title">Contact developer</string>
-    <string name="remindy_settings_contact_summary">uestions? Email us at reckonize@gmail.com</string>
+    <string name="remindy_settings_contact_summary">Questions? Email us at reckonize@gmail.com</string>
 
     <string name="settings_triggered_task_list_key" translatable="false">Checkliz_settings_triggered_task_list_key</string>
 
@@ -512,7 +512,7 @@
     <string name="ttsu_activity_edit_image_attachment_camera_description">Tap this button to replace the image</string>
 
     <string name="ttsu_activity_place_list_no_items_container_title">Manage your Places</string>
-    <string name="ttsu_activity_place_list_no_items_container_description">Add places such as \'Home\' or \'Work\' or any other place you want Remindy to keep track of</string>
+    <string name="ttsu_activity_place_list_no_items_container_description">Add places such as \'Home\' or \'Work\' or any other place you want Checkliz to keep track of</string>
     <string name="ttsu_activity_place_list_fab_title">Add a Place</string>
     <string name="ttsu_activity_place_list_fab_description">Tap this to add a new Place</string>
 

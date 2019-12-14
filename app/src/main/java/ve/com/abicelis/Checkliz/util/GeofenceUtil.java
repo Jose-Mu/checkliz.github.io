@@ -20,7 +20,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import ve.com.abicelis.Checkliz.app.services.GeofenceNotificationIntentService;
-import ve.com.abicelis.Checkliz.database.RemindyDAO;
+import ve.com.abicelis.Checkliz.database.ChecklizDAO;
 import ve.com.abicelis.Checkliz.model.Place;
 
 
@@ -36,7 +36,7 @@ public class GeofenceUtil {
     /* GeoFence management methods */
     public static void addGeofences(final Context context, GoogleApiClient googleApiClient) {
         checkGoogleApiClient(googleApiClient);
-        List<Place> places = new RemindyDAO(context).getActivePlaces();
+        List<Place> places = new ChecklizDAO(context).getActivePlaces();
 
         if(places.size() > 0) {
             if (PackageManager.PERMISSION_GRANTED == ActivityCompat.checkSelfPermission(context, Manifest.permission.ACCESS_FINE_LOCATION)) {

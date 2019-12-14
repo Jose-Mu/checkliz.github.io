@@ -48,10 +48,7 @@
         android:key="@string/settings_about_key"
         android:title="@string/settings_about_title"
         android:summary="@string/settings_about_summary"/>
-    <Preference
-        android:key="@string/remindy_settings_rate_key"
-        android:title="@string/remindy_settings_rate_title"
-        android:summary="@string/remindy_settings_rate_summary"/>
+
     <Preference
         android:key="@string/remindy_settings_contact_key"
         android:title="@string/remindy_settings_contact_title"

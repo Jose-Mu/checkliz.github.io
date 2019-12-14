@@ -41,7 +41,7 @@ import ve.com.abicelis.Checkliz.app.fragments.LocationBasedReminderDetailFragmen
 import ve.com.abicelis.Checkliz.app.fragments.OneTimeReminderDetailFragment;
 import ve.com.abicelis.Checkliz.app.fragments.RepeatingReminderDetailFragment;
 import ve.com.abicelis.Checkliz.app.holders.ImageAttachmentViewHolder;
-import ve.com.abicelis.Checkliz.database.RemindyDAO;
+import ve.com.abicelis.Checkliz.database.ChecklizDAO;
 import ve.com.abicelis.Checkliz.enums.DateFormat;
 import ve.com.abicelis.Checkliz.enums.ReminderType;
 import ve.com.abicelis.Checkliz.enums.TaskStatus;
@@ -131,7 +131,7 @@ public class TaskDetailActivity extends AppCompatActivity implements View.OnClic
         if(getIntent().hasExtra(TASK_ID_TO_DISPLAY)) {
             int taskId = getIntent().getIntExtra(TASK_ID_TO_DISPLAY, -1);
             try {
-                mTask = new RemindyDAO(getApplicationContext()).getTask(taskId);
+                mTask = new ChecklizDAO(getApplicationContext()).getTask(taskId);
             } catch (CouldNotGetDataException e) {
                 BaseTransientBottomBar.BaseCallback<Snackbar> callback = new BaseTransientBottomBar.BaseCallback<Snackbar>() {
                     @Override
@@ -314,7 +314,7 @@ public class TaskDetailActivity extends AppCompatActivity implements View.OnClic
                 AttachmentUtil.cleanInvalidAttachments(mTask.getAttachments());
 
                 //Save changes
-                new RemindyDAO(this).updateTask(mTask);
+                new ChecklizDAO(this).updateTask(mTask);
 
                 //Update geofences
                 if(mUpdateGeofences || mTask.getReminderType().equals(ReminderType.LOCATION_BASED))
@@ -506,7 +506,7 @@ public class TaskDetailActivity extends AppCompatActivity implements View.OnClic
 
                         try {
                             FileUtil.deleteAttachmentFiles(TaskDetailActivity.this, mTask.getAttachments());
-                            new RemindyDAO(TaskDetailActivity.this).deleteTask(mTask.getId());
+                            new ChecklizDAO(TaskDetailActivity.this).deleteTask(mTask.getId());
 
                             BaseTransientBottomBar.BaseCallback<Snackbar> callback = new BaseTransientBottomBar.BaseCallback<Snackbar>() {
                                 @Override

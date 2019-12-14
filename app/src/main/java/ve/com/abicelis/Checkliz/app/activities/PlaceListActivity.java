@@ -20,7 +20,7 @@ import java.util.List;
 
 import ve.com.abicelis.Checkliz.R;
 import ve.com.abicelis.Checkliz.app.adapters.PlaceAdapter;
-import ve.com.abicelis.Checkliz.database.RemindyDAO;
+import ve.com.abicelis.Checkliz.database.ChecklizDAO;
 import ve.com.abicelis.Checkliz.model.Place;
 
 public class PlaceListActivity extends AppCompatActivity implements View.OnClickListener {
@@ -30,7 +30,7 @@ public class PlaceListActivity extends AppCompatActivity implements View.OnClick
 
     //DATA
     private List<Place> mPlaces = new ArrayList<>();
-    private RemindyDAO mDao;
+    private ChecklizDAO mDao;
 
     //UI
     private LinearLayout mContainer;
@@ -91,7 +91,7 @@ public class PlaceListActivity extends AppCompatActivity implements View.OnClick
     private void refreshRecyclerView() {
 
         if(mDao == null)
-            mDao = new RemindyDAO(getApplicationContext());
+            mDao = new ChecklizDAO(getApplicationContext());
 
         //Clear the list and refresh it with new data, this must be done so the mAdapter
         // doesn't lose track of the reminder list

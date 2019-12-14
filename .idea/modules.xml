@@ -2,7 +2,8 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/Checkliz - Copy.iml" filepath="$PROJECT_DIR$/Checkliz - Copy.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Checkliz.iml" filepath="$PROJECT_DIR$/Checkliz.iml" />
+      <module fileurl="file://$PROJECT_DIR$/GitHub-Checkliz.iml" filepath="$PROJECT_DIR$/GitHub-Checkliz.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
     </modules>
   </component>

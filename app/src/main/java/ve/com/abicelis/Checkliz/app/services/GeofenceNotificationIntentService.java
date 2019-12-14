@@ -13,7 +13,7 @@ import java.util.List;
 import java.util.Locale;
 
 import ve.com.abicelis.Checkliz.R;
-import ve.com.abicelis.Checkliz.database.RemindyDAO;
+import ve.com.abicelis.Checkliz.database.ChecklizDAO;
 import ve.com.abicelis.Checkliz.exception.CouldNotGetDataException;
 import ve.com.abicelis.Checkliz.exception.PlaceNotFoundException;
 import ve.com.abicelis.Checkliz.model.Place;
@@ -57,7 +57,7 @@ public class GeofenceNotificationIntentService extends IntentService {
             for(Geofence geofence : geofencingEvent.getTriggeringGeofences()) {
                 List<Task> tasks = new ArrayList<>();
                 try {
-                    tasks = new RemindyDAO(this).getLocationBasedTasksAssociatedWithPlace(Integer.valueOf(geofence.getRequestId()), geofenceTransition);
+                    tasks = new ChecklizDAO(this).getLocationBasedTasksAssociatedWithPlace(Integer.valueOf(geofence.getRequestId()), geofenceTransition);
                 }catch (CouldNotGetDataException e) {
                     Log.e("TAG", "Could not get data, geofence notification service.", e);
                 }
@@ -112,7 +112,7 @@ public class GeofenceNotificationIntentService extends IntentService {
         int placeId = Integer.valueOf(triggeringGeofence.getRequestId());
 
         try {
-            Place place = new RemindyDAO(this).getPlace(placeId);
+            Place place = new ChecklizDAO(this).getPlace(placeId);
             return String.format(Locale.getDefault(),
                     getResources().getString(R.string.notification_service_geofence_title),
                     transition,

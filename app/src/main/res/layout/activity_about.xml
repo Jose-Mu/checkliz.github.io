@@ -35,7 +35,7 @@
                 android:layout_centerHorizontal="true"
 
                 android:layout_marginTop="50dp"
-                android:src="@drawable/icon_remindy" />
+                android:src="@drawable/icon_checkliz" />
 
             <TextView
                 android:id="@+id/activity_about_app_name"

@@ -22,7 +22,7 @@ import java.util.List;
 import ve.com.abicelis.Checkliz.R;
 import ve.com.abicelis.Checkliz.app.activities.PlaceActivity;
 import ve.com.abicelis.Checkliz.app.interfaces.TaskDataInterface;
-import ve.com.abicelis.Checkliz.database.RemindyDAO;
+import ve.com.abicelis.Checkliz.database.ChecklizDAO;
 import ve.com.abicelis.Checkliz.enums.ReminderType;
 import ve.com.abicelis.Checkliz.enums.TaskStatus;
 import ve.com.abicelis.Checkliz.model.Task;
@@ -151,7 +151,7 @@ public class ReminderFragment extends Fragment implements TaskDataInterface {
 
 
     private boolean atLeastOnePlaceExists() {
-        return (new RemindyDAO(getActivity()).getPlaces().size() > 0);
+        return (new ChecklizDAO(getActivity()).getPlaces().size() > 0);
     }
 
     private void handleLocationBasedTaskReminderSelected() {

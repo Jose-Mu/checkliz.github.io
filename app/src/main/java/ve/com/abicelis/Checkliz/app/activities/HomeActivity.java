@@ -187,11 +187,6 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
                 startActivity(goToAboutActivity);
                 return true;
 
-            case R.id.menu_home_rate:
-                Intent playStoreIntent = new Intent(Intent.ACTION_VIEW);
-                playStoreIntent.setData(Uri.parse(getResources().getString(R.string.url_market)));
-                startActivity(playStoreIntent);
-                return true;
 
             case R.id.menu_home_login:
                 Intent goToLoginActivity = new Intent(getApplicationContext(), LoginActivity.class);

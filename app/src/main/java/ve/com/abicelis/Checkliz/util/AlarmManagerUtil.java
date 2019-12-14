@@ -12,7 +12,7 @@ import java.util.Calendar;
 import java.util.List;
 
 import ve.com.abicelis.Checkliz.app.services.TriggerTaskNotificationReceiver;
-import ve.com.abicelis.Checkliz.database.RemindyDAO;
+import ve.com.abicelis.Checkliz.database.ChecklizDAO;
 import ve.com.abicelis.Checkliz.exception.CouldNotGetDataException;
 import ve.com.abicelis.Checkliz.viewmodel.TaskTriggerViewModel;
 
@@ -32,7 +32,7 @@ public class AlarmManagerUtil {
         //Get next task to trigger
         TaskTriggerViewModel task;
         try {
-            task = new RemindyDAO(context).getNextTaskToTrigger(triggeredTasks);
+            task = new ChecklizDAO(context).getNextTaskToTrigger(triggeredTasks);
         } catch (CouldNotGetDataException e ) {
             task = null;
         }

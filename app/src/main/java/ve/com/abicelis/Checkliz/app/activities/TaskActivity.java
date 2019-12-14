@@ -32,7 +32,7 @@ import ve.com.abicelis.Checkliz.app.adapters.TaskViewPagerAdapter;
 import ve.com.abicelis.Checkliz.app.fragments.ReminderFragment;
 import ve.com.abicelis.Checkliz.app.fragments.TaskFragment;
 import ve.com.abicelis.Checkliz.app.holders.ImageAttachmentViewHolder;
-import ve.com.abicelis.Checkliz.database.RemindyDAO;
+import ve.com.abicelis.Checkliz.database.ChecklizDAO;
 import ve.com.abicelis.Checkliz.enums.ReminderType;
 import ve.com.abicelis.Checkliz.exception.CouldNotInsertDataException;
 import ve.com.abicelis.Checkliz.model.Task;
@@ -324,7 +324,7 @@ public class TaskActivity extends AppCompatActivity implements
         AttachmentUtil.cleanInvalidAttachments(mTask.getAttachments());
 
         try {
-            RemindyDAO dao = new RemindyDAO(this);
+            ChecklizDAO dao = new ChecklizDAO(this);
 
             if (!editingTask) {
 

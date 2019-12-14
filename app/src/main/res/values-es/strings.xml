@@ -8,7 +8,7 @@
     <string name="activity_edit_image_attachment_snackbar_error_image_deleted_from_device">Imagen no existe, usando thumbnail de baja resolución</string>
     <string name="activity_edit_image_attachment_snackbar_error_loading_cropped_image">No pudo cargar imagen recortada</string>
     <string name="activity_edit_image_attachment_snackbar_error_no_camera_installed">Este dispositivo no tiene un app de cámara instalado</string>
-    <string name="activity_edit_image_attachment_snackbar_error_no_permissions">Por favor otorgar a Remindy los permisos requeridos</string>
+    <string name="activity_edit_image_attachment_snackbar_error_no_permissions">Por favor otorgar a Checkliz los permisos requeridos</string>
     <string name="activity_home_tab_done">LISTO</string>
     <string name="activity_home_tab_location_based">CON-LOCACION</string>
     <string name="activity_home_tab_programmed">PROGRAMADO</string>
@@ -212,7 +212,7 @@
     <string name="menu_activity_task_action_save">GUARDAR</string>
     <string name="menu_activity_task_subtitle_attachments">Adjuntos</string>
     <string name="menu_home_action_about">Acerca de</string>
-    <string name="menu_home_action_rate">Calificar app</string>
+
     <string name="menu_home_action_settings">Preferencias</string>
     <string name="menu_home_action_sort">Ordenar</string>
     <string name="no_address_found">No se encontró una dirección</string>
@@ -236,8 +236,7 @@
     <string name="reminder_type_repeating">Repetidor</string>
     <string name="remindy_settings_contact_summary">Tiene problemas al usar ésta app? Preguntas? Envíeme un email a alejandro@alejandrobicelis.com.ve</string>
     <string name="remindy_settings_contact_title">Contactar al desarrolador</string>
-    <string name="remindy_settings_rate_summary">Le gusta el app? Una calificacion de 5 vendría muy bien!</string>
-    <string name="remindy_settings_rate_title">Calificar Remindy</string>
+
     <string name="restore_failed">Error al restaurar data</string>
     <string name="restore_not_successful">Backup no encontrado en Tarjeta SD</string>
     <string name="restore_successful">Data restaurada satisfactoriamente de la tarjeta SD</string>
